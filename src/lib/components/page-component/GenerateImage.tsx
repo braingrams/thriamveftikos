@@ -24,9 +24,8 @@ export const generateImageProfile = async (
       await updateDoc(userRef, {
         data: { ...data, processed: true },
       }).then(async () => {
-        await download(dataUrl, `${data?.nickName}.png`).then(() => {
-          router.refresh();
-        });
+        await download(dataUrl, `${data?.nickName}.png`);
+        router.refresh();
         setLoading(false);
       });
     })
