@@ -2,7 +2,6 @@ import { doc, updateDoc } from 'firebase/firestore';
 import { IMainForm } from '../Utilis/Schemas';
 import { toPng } from 'html-to-image';
 import { db } from '../firebase/firebase';
-import fileDownload from 'js-file-download';
 const download = require('downloadjs');
 
 export const generateImageProfile = async (
@@ -19,15 +18,16 @@ export const generateImageProfile = async (
 
   const userRef = doc(db, 'user-biodata', data.email as string);
   setLoading(true);
+
   await toPng(pageRef.current)
     .then(async function (dataUrl) {
       await updateDoc(userRef, {
         data: { ...data, processed: true },
-      }).then(() => {
-        download(dataUrl, `${data?.nickName}.png`);
-        // fileDownload(dataUrl, `${data?.nickName}.png`, 'image/png');
-        // router.refresh();
-        setLoading(false);
+      }).then(async () => {
+        await download(dataUrl, `${data?.nickName}.png`).then(() => {
+          router.refresh();
+          setLoading(false);
+        });
       });
     })
     .catch((error: any) => {
