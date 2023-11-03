@@ -12,6 +12,7 @@ import {
   Thead,
   Tr,
   VStack,
+  Image,
 } from '@chakra-ui/react';
 import React, { useRef, useState } from 'react';
 import { TableBody, TableHead } from '../Utilis/TableData';
@@ -34,7 +35,10 @@ export const DashboardPage = ({ data }: { data: any }) => {
     generateImageProfile(data, pageRef, setLoading, router);
   };
   return (
-    <>
+    <Box h="100vh" overflowX="hidden" pos="relative">
+      <Box h="5rem" mx="auto" w="fit-content" mb="1rem">
+        <Image src="/assets/logo.png" h="full" />
+      </Box>
       {data.error ? (
         <VStack>
           <Text fontWeight={700} fontSize="1.3rem">
@@ -47,7 +51,7 @@ export const DashboardPage = ({ data }: { data: any }) => {
         </VStack>
       ) : (
         <>
-          <Box>
+          <Box p="0 2rem">
             <Text my="1rem" fontWeight={600} fontSize="1.3rem">
               Hello Admin,
             </Text>
@@ -113,11 +117,11 @@ export const DashboardPage = ({ data }: { data: any }) => {
               </Table>
             </TableContainer>
           </Box>
-          <Box opacity={1} pos="absolute">
+          <Box opacity={0} pos="absolute">
             <Flyer newRef={pageRef} data={info} />
           </Box>
         </>
       )}
-    </>
+    </Box>
   );
 };
