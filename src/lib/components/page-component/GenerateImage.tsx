@@ -3,6 +3,7 @@ import { IMainForm } from '../Utilis/Schemas';
 import { toPng } from 'html-to-image';
 import { db } from '../firebase/firebase';
 const download = require('downloadjs');
+import { useWindowSize } from 'react-use';
 
 export const generateImageProfile = async (
   data: IMainForm,
@@ -15,6 +16,8 @@ export const generateImageProfile = async (
   const opt = {
     quality: 0.95,
   };
+  const { width } = useWindowSize();
+  const isMobile = width <= 750;
 
   const userRef = doc(db, 'user-biodata', data.email as string);
   setLoading(true);
@@ -25,7 +28,7 @@ export const generateImageProfile = async (
         data: { ...data, processed: true },
       }).then(async () => {
         await download(dataUrl, `${data?.nickName}.png`);
-        router.refresh();
+        !isMobile && router.refresh();
         setLoading(false);
       });
     })
