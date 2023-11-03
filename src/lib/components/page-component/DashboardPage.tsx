@@ -24,15 +24,17 @@ import { BsCheckCircleFill } from 'react-icons/bs';
 import { FaTimesCircle } from 'react-icons/fa';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { useWindowSize } from 'react-use';
 
 export const DashboardPage = ({ data }: { data: any }) => {
   const pageRef = useRef();
   const router = useRouter();
   const [info, setInfo] = useState<IMainForm>({});
   const [loading, setLoading] = useState(false);
+  const { width } = useWindowSize();
   const generateFlyer = (data: IMainForm) => {
     setInfo(data as IMainForm);
-    generateImageProfile(data, pageRef, setLoading, router);
+    generateImageProfile(data, pageRef, setLoading, router, width);
   };
   return (
     <Box h="100vh" overflowX="hidden" pos="relative">

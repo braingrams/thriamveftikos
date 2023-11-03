@@ -3,20 +3,20 @@ import { IMainForm } from '../Utilis/Schemas';
 import { toPng } from 'html-to-image';
 import { db } from '../firebase/firebase';
 const download = require('downloadjs');
-import { useWindowSize } from 'react-use';
 
 export const generateImageProfile = async (
   data: IMainForm,
   pageRef: any,
   setLoading: any,
-  router: any
+  router: any,
+  width: any
 ) => {
   // console.log(pageRef, data);
 
   const opt = {
     quality: 0.95,
   };
-  const { width } = useWindowSize();
+
   const isMobile = width <= 750;
 
   const userRef = doc(db, 'user-biodata', data.email as string);
