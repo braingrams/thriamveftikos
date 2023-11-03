@@ -17,7 +17,7 @@ const Layout = ({ children }: LayoutProps) => {
       maxWidth={['full', 800]}
       transition="0.5s ease-out"
       w="full"
-      minH="100vh"
+      minH="80vh"
       align="center"
       justify="center"
     >
