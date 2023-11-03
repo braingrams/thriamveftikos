@@ -26,8 +26,8 @@ export const generateImageProfile = async (
       }).then(async () => {
         await download(dataUrl, `${data?.nickName}.png`).then(() => {
           router.refresh();
-          setLoading(false);
         });
+        setLoading(false);
       });
     })
     .catch((error: any) => {
