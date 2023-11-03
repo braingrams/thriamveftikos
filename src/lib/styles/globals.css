@@ -1,1 +1,30 @@
-/* Global Styling here */
+.date {
+    border: 1px solid #e5e5e5;
+    height: 2.6rem;
+    /* border-radius: 5px; */
+    padding: 0 1rem;
+    box-sizing: border-box;
+    width: 100%;
+}
+.dateError {
+    border: 2px solid red;
+    height: 2.6rem;
+    /* border-radius: 5px; */
+    padding: 0 1rem;
+    box-sizing: border-box;
+    width: 100%;
+}
+.dateWrapper {
+    width: 100%;
+}
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+    background-color: #dce1e7;
+    border-radius: 15px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #000;
+    border-radius: 15px;
+}

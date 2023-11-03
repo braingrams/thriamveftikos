@@ -2,16 +2,17 @@ import type { Metadata } from 'next';
 
 import Providers from '~/app/providers';
 import Layout from '~/lib/layout';
+import '~/lib/styles/globals.css';
 
 type RootLayoutProps = {
   children: React.ReactNode;
 };
 
-const APP_NAME = 'nextarter-chakra';
+const APP_NAME = 'The Thriamveftikos biodata portal';
 
 export const metadata: Metadata = {
-  title: { default: APP_NAME, template: '%s | nextarter-chakra' },
-  description: 'Next.js + chakra-ui + TypeScript template',
+  title: { default: APP_NAME, template: '%s ' },
+  description: 'We are thriumphant',
   viewport: {
     width: 'device-width',
     initialScale: 1,
@@ -27,16 +28,16 @@ export const metadata: Metadata = {
   },
   themeColor: '#FFFFFF',
   openGraph: {
-    url: 'https://nextarter-chakra.sznm.dev',
-    title: 'nextarter-chakra',
-    description: 'Next.js + chakra-ui + TypeScript template',
+    url: 'https://bamfolio.netlify.app',
+    title: 'Thriamveftikos',
+    description: 'We are thriumphant',
     images: {
-      url: 'https://og-image.sznm.dev/**nextarter-chakra**.sznm.dev.png?theme=dark&md=1&fontSize=125px&images=https%3A%2F%2Fsznm.dev%2Favataaars.svg&widths=250',
-      alt: 'nextarter-chakra.sznm.dev og-image',
+      url: '',
+      alt: 'bamfolio.netlify.app og-image',
     },
   },
   twitter: {
-    creator: '@sozonome',
+    creator: '@braintweets',
     card: 'summary_large_image',
   },
 };
