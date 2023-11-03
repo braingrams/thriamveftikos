@@ -7,7 +7,7 @@ import React from 'react';
 export const HomePage = () => {
   return (
     <VStack>
-      <Box h="8rem">
+      <Box h="8rem" mb="1rem">
         <Image src="/assets/logo.png" h="full" />
       </Box>
       <Text textAlign="center">
@@ -16,7 +16,7 @@ export const HomePage = () => {
         to be shown on the flyer. <br /> Submission can only be once{' '}
       </Text>
       <Link passHref href="/start">
-        <Button h="2.8rem" px="1.5rem">
+        <Button h="2.8rem" px="1.5rem" bgColor="goldenrod" color="white">
           Click here to proceed
         </Button>
       </Link>

@@ -32,6 +32,7 @@ export const PrimaryUpload = ({
           onClick={() => widgetApi.current.openDialog()}
           bgColor="blue.100"
           border={errors?.message !== undefined ? '2px solid red' : '0'}
+          overflow="hidden"
         >
           {imageUrl?.loading ? (
             <Spinner size="sm" />

@@ -1,15 +1,6 @@
 'use client';
 
-import {
-  Box,
-  Button,
-  VStack,
-  Text,
-  Image,
-  Circle,
-  Icon,
-  Spinner,
-} from '@chakra-ui/react';
+import { Box, Button, VStack, Text, Image } from '@chakra-ui/react';
 import React, { useEffect, useRef, useState } from 'react';
 import { PrimaryInput } from '../Utilis/PrimaryInput';
 import { IMainForm } from '../Utilis/Schemas';
@@ -22,52 +13,29 @@ import { PrimarySelect } from '../Utilis/PrimarySelect';
 import { setDoc, doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 import { PrimaryUpload } from '../Utilis/PrimaryUpload';
-import OpenAIApi from 'openai';
+import { responseGenerate } from './gptAi';
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),
   firstName: yup.string().required(),
   lastName: yup.string().required(),
+  nickName: yup.string().required(),
   dob: yup.string().required(),
   option: yup.string().required(),
   quote: yup.string().required(),
   image: yup.string().required(),
+  favLecturer: yup.string().required(),
+  favCourse: yup.string().required(),
+  crush: yup.string().required(),
+  relationshipStatus: yup.string().required(),
+  instagram: yup.string().required(),
 });
 
 export const FormPage = () => {
-  const openai = new OpenAIApi({
-    apiKey: process.env.NEXT_PUBLIC_OPEN_AI_KEY,
-    dangerouslyAllowBrowser: true,
-  });
-
-  const [message, setMessage] = useState('');
-
-  const responseGenerate = async (data: IMainForm) => {
-    let completeOptions = {
-      prompt: ` "${data.firstName}"`,
-      model: 'text-davinci-003',
-      // model: 'gpt-3.5-turbo',
-      max_tokens: 256,
-      temperature: 0.7,
-      n: 1,
-      stop: '.',
-      top_p: 1,
-      frequency_penalty: 0,
-      presense_penalty: 0,
-    };
-
-    const response = await openai.completions.create(completeOptions as any);
-
-    console.log({ response });
-    if (response.choices) {
-      setMessage(response.choices[0].text);
-    }
-  };
   const {
     register,
     handleSubmit,
     control,
-    watch,
     reset,
     trigger,
     setValue,
@@ -75,10 +43,14 @@ export const FormPage = () => {
   } = useForm<IMainForm>({
     resolver: yupResolver(schema),
     mode: 'all',
+    defaultValues: {
+      processed: false,
+    },
   });
 
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+  const [message, setMessage] = useState('');
 
   const widgetApi = useRef<any>();
   const [imageUrl, setimageUrl] = useState<any>({ loading: false, url: '' });
@@ -94,7 +66,6 @@ export const FormPage = () => {
   };
 
   const onSubmit = async (data: IMainForm) => {
-    console.log('Yeah');
     const userDocRef = doc(db, 'user-biodata', data.email as string);
     const userDocSnapshot = await getDoc(userDocRef);
     try {
@@ -104,7 +75,7 @@ export const FormPage = () => {
         await setDoc(userDocRef, {
           data,
         }).then(() => {
-          responseGenerate(data);
+          responseGenerate(data, setMessage);
           setSuccess(true);
         });
         reset();
@@ -125,11 +96,13 @@ export const FormPage = () => {
       </Box>
       {success ? (
         <Box bgColor="green.50" borderRadius="5px" p=".5rem 1rem">
-          <Text>{message}</Text>
+          <Text textAlign="center" fontSize=".8rem">
+            {message}
+          </Text>
         </Box>
       ) : (
         <Box>
-          <Text fontSize="1.8rem" fontWeight={700} textAlign="center" mb="1rem">
+          <Text fontSize="1.3rem" fontWeight={700} textAlign="center" mb="1rem">
             Fill in the form Below!
           </Text>
           {error && (
@@ -159,16 +132,23 @@ export const FormPage = () => {
               <PrimaryInput<IMainForm>
                 name="firstName"
                 register={register}
-                placeholder="Tade"
+                placeholder="Type in here"
                 error={errors.firstName}
                 label="First Name"
               />
               <PrimaryInput<IMainForm>
                 name="lastName"
                 register={register}
-                placeholder="Tade"
+                placeholder="Type in here"
                 error={errors.lastName}
                 label="Last Name"
+              />
+              <PrimaryInput<IMainForm>
+                name="nickName"
+                register={register}
+                placeholder="Type in here"
+                error={errors.nickName}
+                label="NickName"
               />
               <PrimaryDate<IMainForm>
                 name="dob"
@@ -177,12 +157,47 @@ export const FormPage = () => {
                 error={errors.dob}
                 label="DOB"
               />
-              <PrimaryTextArea<IMainForm>
-                name="quote"
+              <PrimaryInput<IMainForm>
+                name="favLecturer"
                 register={register}
-                placeholder="Tade"
-                error={errors.quote}
-                label="Favourite Quote"
+                placeholder="Type in here"
+                error={errors.favLecturer}
+                label="Favourite Lecture"
+              />
+              <PrimaryInput<IMainForm>
+                name="favCourse"
+                register={register}
+                placeholder="Type in here"
+                error={errors.favCourse}
+                label="Favourite Course"
+              />
+              <PrimaryInput<IMainForm>
+                name="hobbie"
+                register={register}
+                placeholder="Type in here"
+                error={errors.hobbie}
+                label="Hobbie"
+              />
+              <PrimaryInput<IMainForm>
+                name="relationshipStatus"
+                register={register}
+                placeholder="Type in here"
+                error={errors.relationshipStatus}
+                label="Relationship status"
+              />
+              <PrimaryInput<IMainForm>
+                name="crush"
+                register={register}
+                placeholder="Type in here"
+                error={errors.crush}
+                label="Departmental Crush"
+              />
+              <PrimaryInput<IMainForm>
+                name="instagram"
+                register={register}
+                placeholder="Type in here"
+                error={errors.instagram}
+                label="Instagram Username"
               />
               <PrimarySelect<IMainForm>
                 name="option"
@@ -199,6 +214,13 @@ export const FormPage = () => {
                   </>
                 }
                 label="Option"
+              />
+              <PrimaryTextArea<IMainForm>
+                name="quote"
+                register={register}
+                placeholder="Type in here"
+                error={errors.quote}
+                label="Favourite Quote"
               />
 
               <Button

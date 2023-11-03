@@ -6,7 +6,7 @@ const Footer = () => {
       <Text fontSize="sm">
         {new Date().getFullYear()} -{' '}
         <Link href="https://sznm.dev" isExternal rel="noopener noreferrer">
-          Built by Brain
+          Developed with Love by Brain
         </Link>
       </Text>
     </Flex>
