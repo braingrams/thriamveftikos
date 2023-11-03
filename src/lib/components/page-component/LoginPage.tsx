@@ -65,7 +65,7 @@ export const LoginPage = () => {
           </Text>
         </>
       )}
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}>
         <VStack w="full">
           <PrimaryInput<ILoginForm>
             name="email"
