@@ -9,7 +9,7 @@ export const TextBox = ({ title, value }: { title: string; value: any }) => {
       gap="0"
       fontFamily="'Baloo Bhaijaan 2', sans-serif"
     >
-      <Text fontWeight={600} fontSize=".6rem" color="goldenrod">
+      <Text fontWeight={600} fontSize=".6rem" color="goldenrod" mb="0">
         {title}
       </Text>
       <Text fontSize=".8rem">{value}</Text>

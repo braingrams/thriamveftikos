@@ -5,9 +5,9 @@ import ThemeToggle from './ThemeToggle';
 const Header = () => {
   return (
     <Flex as="header" width="full" align="center">
-      <Box marginLeft="auto">
+      {/* <Box marginLeft="auto">
         <ThemeToggle />
-      </Box>
+      </Box> */}
     </Flex>
   );
 };

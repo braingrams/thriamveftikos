@@ -7,9 +7,11 @@ const download = require('downloadjs');
 export const generateImageProfile = async (
   data: IMainForm,
   pageRef: any,
-  setLoading: any
+  setLoading: any,
+  router: any
 ) => {
   // console.log(pageRef, data);
+
   const opt = {
     quality: 0.95,
   };
@@ -21,6 +23,7 @@ export const generateImageProfile = async (
         data: { ...data, processed: true },
       }).then(() => {
         download(dataUrl, `${data?.nickName}.png`);
+        router.refresh();
         setLoading(false);
       });
     })

@@ -91,7 +91,7 @@ export const Flyer = ({ newRef, data }: { newRef: any; data: IMainForm }) => {
             </Box>
           </Box>
 
-          <VStack w="full" align="flex-start">
+          <VStack w="full" align="flex-start" gap="0">
             <TextBox title="Nickname" value={data?.nickName} />
             <TextBox title="Option" value={data?.option} />
             <TextBox title="DOB" value={dayjs(data?.dob).format('MMM DD')} />

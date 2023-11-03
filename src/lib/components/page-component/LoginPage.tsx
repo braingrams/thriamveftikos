@@ -1,6 +1,6 @@
 'use client';
 
-import { VStack, Image, Box, Button } from '@chakra-ui/react';
+import { VStack, Image, Box, Button, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { PrimaryInput } from '../Utilis/PrimaryInput';
 import { useForm } from 'react-hook-form';
@@ -27,24 +27,27 @@ export const LoginPage = () => {
     resolver: yupResolver(schema),
     mode: 'all',
   });
-  const [error, setError] = useState({});
+  const [error, setError] = useState({ state: false, message: '' });
   const onSubmit = async (data: ILoginForm) => {
-    setError({});
+    setError({ state: false, message: '' });
     try {
       const res = await signIn(
         auth,
         data.email as string,
         data.password as string
       );
-      console.log({ res });
       if (res.user) {
         router.push('/admin/dashboard');
-        Cookies.set('token', res.user?.accessToken as string, { expires: 1 });
+        Cookies.set('token', res.user?.refreshToken as string, { expires: 1 });
+        setError({
+          state: true,
+          message: "Login Successful!. You'll be redirected ",
+        });
         return;
       }
-    } catch (err) {
+    } catch (err: any) {
       console.log({ err });
-      // setError(err.);
+      setError({ state: true, message: err?.name });
     }
   };
   return (
@@ -52,6 +55,16 @@ export const LoginPage = () => {
       <Box h="5rem" mx="auto" w="fit-content" mb="1rem">
         <Image src="/assets/logo.png" h="full" />
       </Box>
+
+      {error.state && (
+        <>
+          <Text textAlign="center" fontSize=".8rem">
+            {error?.message == 'FirebaseError'
+              ? 'Invalid Credentials!'
+              : error?.message}
+          </Text>
+        </>
+      )}
       <form onSubmit={handleSubmit(onSubmit)}>
         <VStack w="full">
           <PrimaryInput<ILoginForm>
