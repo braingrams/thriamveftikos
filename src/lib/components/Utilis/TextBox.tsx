@@ -28,8 +28,8 @@ export const TextBox = ({
           fontSize=".7rem"
           color="blue.600"
           mb="0"
-          borderBottom="2px dashed"
-          borderColor="blue.600"
+          // borderBottom="1px dashed"
+          // borderColor="blue.600"
         >
           {title}
         </Text>
