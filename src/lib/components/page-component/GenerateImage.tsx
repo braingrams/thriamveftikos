@@ -9,13 +9,13 @@ export const generateImageProfile = async (
   setDataUrl: any
 ) => {
   setDataUrl('');
-  setLoading(true);
+  setLoading({ id: data?.email });
 
   await toPng(pageRef.current)
     .then(async function (dataUrl) {
       setDataUrl(dataUrl);
       onOpen();
-      setLoading(false);
+      setLoading({ id: '' });
     })
     .catch((error: any) => {
       console.error('Error Generating Image:', error);

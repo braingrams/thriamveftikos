@@ -35,7 +35,7 @@ export const DashboardPage = ({ data }: { data: any }) => {
   const pageRef = useRef();
   const router = useRouter();
   const [info, setInfo] = useState<IMainForm>({});
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState({ id: '' });
   const [dataUrl, setDataUrl] = useState('');
   const { isOpen, onClose, onOpen } = useDisclosure();
   const { width } = useWindowSize();
@@ -152,7 +152,7 @@ export const DashboardPage = ({ data }: { data: any }) => {
                             fontSize=".8rem"
                             h="2.6rem"
                             onClick={() => generateFlyer(user)}
-                            isLoading={loading}
+                            isLoading={loading.id == user?.email}
                           >
                             View Flyer
                           </Button>
