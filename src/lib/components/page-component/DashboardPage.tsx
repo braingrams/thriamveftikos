@@ -13,6 +13,7 @@ import {
   Tr,
   VStack,
   Image,
+  useDisclosure,
 } from '@chakra-ui/react';
 import React, { useRef, useState } from 'react';
 import { TableBody, TableHead } from '../Utilis/TableData';
@@ -25,16 +26,27 @@ import { FaTimesCircle } from 'react-icons/fa';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useWindowSize } from 'react-use';
+import { FlyerModal } from './FlyerModal';
+const download = require('downloadjs');
 
 export const DashboardPage = ({ data }: { data: any }) => {
   const pageRef = useRef();
   const router = useRouter();
   const [info, setInfo] = useState<IMainForm>({});
   const [loading, setLoading] = useState(false);
+  const [dataUrl, setDataUrl] = useState('');
+  const { isOpen, onClose, onOpen } = useDisclosure();
   const { width } = useWindowSize();
+  const isMobile = width <= 750;
   const generateFlyer = (data: IMainForm) => {
     setInfo(data as IMainForm);
-    generateImageProfile(data, pageRef, setLoading, router, width);
+    generateImageProfile(data, pageRef, setLoading, onOpen, setDataUrl);
+  };
+
+  const downloadFlyer = () => {
+    download(dataUrl, `${data?.nickName}.png`);
+    onClose();
+    !isMobile && router.refresh();
   };
   return (
     <Box h="100vh" overflowX="hidden" pos="relative">
@@ -109,7 +121,7 @@ export const DashboardPage = ({ data }: { data: any }) => {
                             onClick={() => generateFlyer(user)}
                             isLoading={loading}
                           >
-                            Download
+                            View Flyer
                           </Button>
                         </td>
                       </Tr>
@@ -123,6 +135,16 @@ export const DashboardPage = ({ data }: { data: any }) => {
             <Flyer newRef={pageRef} data={info} />
           </Box>
         </>
+      )}
+
+      {isOpen && (
+        <FlyerModal
+          info={info}
+          isOpen={isOpen}
+          onClose={onClose}
+          pageRef={pageRef}
+          downloadFunc={downloadFlyer}
+        />
       )}
     </Box>
   );
