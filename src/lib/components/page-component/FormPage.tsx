@@ -22,7 +22,10 @@ const schema = yup.object().shape({
   nickName: yup.string().required(),
   dob: yup.string().required(),
   option: yup.string().required(),
-  quote: yup.string().required(),
+  quote: yup
+    .string()
+    .required()
+    .max(90, 'Maximum number of charcter allowed is 90'),
   image: yup.string().required(),
   favLecturer: yup.string().required(),
   favCourse: yup.string().required(),

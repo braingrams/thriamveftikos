@@ -28,6 +28,8 @@ import { useRouter } from 'next/navigation';
 import { useWindowSize } from 'react-use';
 import { FlyerModal } from './FlyerModal';
 const download = require('downloadjs');
+import { db } from '../firebase/firebase';
+import { doc, updateDoc } from 'firebase/firestore';
 
 export const DashboardPage = ({ data }: { data: any }) => {
   const pageRef = useRef();
@@ -43,10 +45,15 @@ export const DashboardPage = ({ data }: { data: any }) => {
     generateImageProfile(data, pageRef, setLoading, onOpen, setDataUrl);
   };
 
-  const downloadFlyer = () => {
-    download(dataUrl, `${info?.nickName}.png`);
-    onClose();
-    !isMobile && router.refresh();
+  const downloadFlyer = async () => {
+    const userRef = doc(db, 'user-biodata', info?.email as string);
+    await updateDoc(userRef, {
+      data: { ...info, processed: true },
+    }).then(async () => {
+      download(dataUrl, `${info?.nickName}.png`);
+      onClose();
+      !isMobile && router.refresh();
+    });
   };
   return (
     <Box h="100vh" overflowX="hidden" pos="relative">
@@ -73,7 +80,7 @@ export const DashboardPage = ({ data }: { data: any }) => {
               List of students that have submitted their data
             </Text>
             <TableContainer w="full" maxH="90vh">
-              <Table>
+              <Table border="1px solid #e5e5e5" variant="simple">
                 <Thead>
                   <Tr>
                     <TableHead name="S/N" />
@@ -93,17 +100,43 @@ export const DashboardPage = ({ data }: { data: any }) => {
                     const user: IMainForm = item.data;
                     return (
                       <Tr key={i}>
-                        <TableBody name={i + 1} />
+                        <TableBody
+                          name={i + 1}
+                          border
+                          value="1px solid #e5e5e5"
+                        />
                         <TableBody
                           name={`${user?.firstName} ${user?.lastName}`}
-                          breakWord
+                          full
+                          border
+                          value="1px solid #e5e5e5"
                         />
-                        <TableBody name={dayjs(user?.dob).format('MMM DD')} />
-                        <TableBody name={user?.favLecturer} />
-                        <TableBody name={user?.favCourse} />
-                        <TableBody name={user?.crush} />
-                        <TableBody name={user.option} />
-                        <Td>
+                        <TableBody
+                          name={dayjs(user?.dob).format('MMM DD')}
+                          border
+                          value="1px solid #e5e5e5"
+                        />
+                        <TableBody
+                          name={user?.favLecturer}
+                          border
+                          value="1px solid #e5e5e5"
+                        />
+                        <TableBody
+                          name={user?.favCourse}
+                          border
+                          value="1px solid #e5e5e5"
+                        />
+                        <TableBody
+                          name={user?.crush}
+                          border
+                          value="1px solid #e5e5e5"
+                        />
+                        <TableBody
+                          name={user.option}
+                          border
+                          value="1px solid #e5e5e5"
+                        />
+                        <Td borderRight="1px solid #e5e5e5">
                           <Flex justify="center" pr="1rem">
                             {user?.processed ? (
                               <Icon as={BsCheckCircleFill} color="green.400" />
@@ -131,7 +164,7 @@ export const DashboardPage = ({ data }: { data: any }) => {
               </Table>
             </TableContainer>
           </Box>
-          <Box opacity={1} pos="absolute">
+          <Box opacity={0} pos="absolute">
             <Flyer newRef={pageRef} data={data[0]?.data} />
           </Box>
         </>

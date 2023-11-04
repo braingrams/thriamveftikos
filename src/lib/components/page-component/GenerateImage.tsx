@@ -1,7 +1,5 @@
-import { doc, updateDoc } from 'firebase/firestore';
 import { IMainForm } from '../Utilis/Schemas';
 import { toPng } from 'html-to-image';
-import { db } from '../firebase/firebase';
 
 export const generateImageProfile = async (
   data: IMainForm,
@@ -10,24 +8,14 @@ export const generateImageProfile = async (
   onOpen: any,
   setDataUrl: any
 ) => {
-  // console.log(pageRef, data);
-
-  const opt = {
-    quality: 0.95,
-  };
-
-  const userRef = doc(db, 'user-biodata', data.email as string);
+  setDataUrl('');
   setLoading(true);
 
   await toPng(pageRef.current)
     .then(async function (dataUrl) {
-      await updateDoc(userRef, {
-        data: { ...data, processed: true },
-      }).then(async () => {
-        setDataUrl(dataUrl);
-        onOpen();
-        setLoading(false);
-      });
+      setDataUrl(dataUrl);
+      onOpen();
+      setLoading(false);
     })
     .catch((error: any) => {
       console.error('Error Generating Image:', error);

@@ -37,8 +37,8 @@ export const Flyer = ({ newRef, data }: { newRef: any; data: IMainForm }) => {
           </VStack>
           <Image src="/assets/lau.png" h="2rem" />
         </HStack>
-        <HStack align="center" h="3.8in" px="0rem" gap="2rem">
-          <Box w="full" h="full" pl="2rem">
+        <HStack align="center" h="3.8in" px="2rem" gap=".5rem">
+          <Box w="full" h="full">
             <Text
               fontFamily="'Russo One', sans-serif"
               fontSize="1.8rem"
@@ -61,12 +61,20 @@ export const Flyer = ({ newRef, data }: { newRef: any; data: IMainForm }) => {
               h="3in"
               // transform="rotate(-5deg)"
               //   bgColor="white"
-              bgImage="url(/assets/framea.png)"
+              bgImage="url(/assets/frame.png)"
               bgSize="contain"
               bgRepeat="no-repeat"
               p="1.3rem"
             >
-              <Box w="100%" h="100%" overflow="hidden">
+              {/* <Box w="100%" h="100%" overflow="hidden"  */}
+              <Box
+                w="71%"
+                h="55%"
+                overflow="hidden"
+                transform="rotate(3deg)"
+                mt="1.8rem"
+                ml="2.6rem"
+              >
                 <Image
                   src={data?.image || '/assets/sample.jpg'}
                   w="full"
@@ -74,7 +82,7 @@ export const Flyer = ({ newRef, data }: { newRef: any; data: IMainForm }) => {
                   objectFit="cover"
                 />
               </Box>
-              <VStack mx="auto" gap="0" mt="1rem">
+              <VStack mx="auto" gap="0" mt="4rem">
                 <Text
                   fontFamily="'UnifrakturCook', cursive"
                   fontSize="1.1rem"
@@ -111,15 +119,15 @@ export const Flyer = ({ newRef, data }: { newRef: any; data: IMainForm }) => {
             </VStack>
             <Box
               bgColor="blue.600"
-              p=".5rem 1rem"
+              p=".5rem .5rem"
               w="full"
               ml="auto"
-              mt=".7rem"
+              // mt=".7rem"
               color="white"
               borderRadius="6px 0 0 6px"
             >
               <Text
-                fontSize=".8rem"
+                fontSize=".7rem"
                 fontFamily="'Baloo Bhaijaan 2', sans-serif"
               >
                 Motivational Quote:
@@ -135,7 +143,7 @@ export const Flyer = ({ newRef, data }: { newRef: any; data: IMainForm }) => {
         </HStack>
         <HStack justify="center" mt="1rem">
           <Text fontSize=".5rem" fontFamily="'Baloo Bhaijaan 2', sans-serif">
-            #FaceOfFinalist || #FaceOfThriamveftikos
+            #FaceOfFinalist || #FaceOfThriamveftikos ||#PabClassOfXXIII
           </Text>
         </HStack>
         <Box pos="absolute" right="1%" top="20%" filter="blur(2px)">
