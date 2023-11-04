@@ -13,13 +13,14 @@ export const Flyer = ({ newRef, data }: { newRef: any; data: IMainForm }) => {
       h="5in"
       bgColor="white"
       color="black"
-      borderBottom="3px solid goldenrod"
+      borderBottom="3px solid"
+      borderColor="blue.600"
       backgroundImage={'url(/assets/conf.png)'}
       backgroundPosition="center"
       backgroundSize="contain"
       pos="relative"
     >
-      <Box backgroundColor="rgba(256,256,256,.8)" h="full">
+      <Box backgroundColor="rgba(256,256,256,.9)" h="full">
         <HStack justify="center" py="1.5rem" align="center">
           <Image src="/assets/logo.png" h="2rem" />
           <VStack gap="0">
@@ -36,14 +37,14 @@ export const Flyer = ({ newRef, data }: { newRef: any; data: IMainForm }) => {
           </VStack>
           <Image src="/assets/lau.png" h="2rem" />
         </HStack>
-        <HStack align="center" h="3in" px="3rem" gap="2rem">
-          <Box w="full" h="full">
+        <HStack align="center" h="3.8in" px="0rem" gap="2rem">
+          <Box w="full" h="full" pl="2rem">
             <Text
               fontFamily="'Russo One', sans-serif"
-              fontSize="1.2rem"
+              fontSize="1.8rem"
               fontWeight={500}
               textAlign="center"
-              color="goldenrod"
+              color="blue.600"
             >
               Thriamveftikos
             </Text>
@@ -51,29 +52,36 @@ export const Flyer = ({ newRef, data }: { newRef: any; data: IMainForm }) => {
               mt="-1rem"
               fontFamily="'Dancing Script', cursive"
               textAlign="center"
+              fontSize="1.2rem"
             >
               Of the day!
             </Text>
             <Box
               w="full"
-              h="full"
-              transform="rotate(-5deg)"
+              h="3in"
+              // transform="rotate(-5deg)"
               //   bgColor="white"
               bgImage="url(/assets/framea.png)"
               bgSize="contain"
               bgRepeat="no-repeat"
-              p="1.2rem"
+              p="1.3rem"
             >
-              <Box w="full" h="87%" overflow="hidden">
-                <Image src={data?.image} w="full" h="full" objectFit="cover" />
+              <Box w="100%" h="100%" overflow="hidden">
+                <Image
+                  src={data?.image || '/assets/sample.jpg'}
+                  w="full"
+                  h="full"
+                  objectFit="cover"
+                />
               </Box>
-              <VStack mx="auto" gap="0" mt="1.5rem">
+              <VStack mx="auto" gap="0" mt="1rem">
                 <Text
                   fontFamily="'UnifrakturCook', cursive"
-                  fontSize="1.2rem"
+                  fontSize="1.1rem"
                   textAlign="center"
+                  color="blue.600"
                 >
-                  {data?.firstName}
+                  {data?.firstName} {data?.lastName}
                 </Text>
                 <HStack
                   fontSize=".5rem"
@@ -91,32 +99,40 @@ export const Flyer = ({ newRef, data }: { newRef: any; data: IMainForm }) => {
             </Box>
           </Box>
 
-          <VStack w="full" align="flex-start" gap="0">
-            <TextBox title="Nickname" value={data?.nickName} />
-            <TextBox title="Option" value={data?.option} />
-            <TextBox title="DOB" value={dayjs(data?.dob).format('MMM DD')} />
-            <TextBox title="Favourite Lecturer" value={data?.favLecturer} />
-            <TextBox title="Favourite Course" value={data?.favCourse} />
-            <TextBox title="Hobbie" value={data?.hobbie} />
-            <TextBox title="Departmental Crush" value={data?.crush} />
+          <VStack w="full" justify="flex-end" h="full">
+            <VStack w="full" align="flex-start" gap="0rem">
+              <TextBox title="Nickname" value={data?.nickName} />
+              <TextBox title="Option" value={data?.option} />
+              <TextBox title="DOB" value={dayjs(data?.dob).format('MMM DD')} />
+              <TextBox title="Favourite Lecturer" value={data?.favLecturer} />
+              <TextBox title="Favourite Course" value={data?.favCourse} />
+              <TextBox title="Hobbie" value={data?.hobbie} />
+              <TextBox title="Departmental Crush" value={data?.crush} />
+            </VStack>
+            <Box
+              bgColor="blue.600"
+              p=".5rem 1rem"
+              w="full"
+              ml="auto"
+              mt=".7rem"
+              color="white"
+              borderRadius="6px 0 0 6px"
+            >
+              <Text
+                fontSize=".8rem"
+                fontFamily="'Baloo Bhaijaan 2', sans-serif"
+              >
+                Motivational Quote:
+              </Text>
+              <Text
+                fontSize=".5rem"
+                fontFamily="'Baloo Bhaijaan 2', sans-serif"
+              >
+                {data?.quote}
+              </Text>
+            </Box>
           </VStack>
         </HStack>
-        <Box
-          bgColor="goldenrod"
-          p=".5rem 1rem"
-          w="48%"
-          ml="auto"
-          mt=".7rem"
-          color="white"
-          borderRadius="6px 0 0 6px"
-        >
-          <Text fontSize=".8rem" fontFamily="'Baloo Bhaijaan 2', sans-serif">
-            Motivational Quote:
-          </Text>
-          <Text fontSize=".5rem" fontFamily="'Baloo Bhaijaan 2', sans-serif">
-            {data?.quote}
-          </Text>
-        </Box>
         <HStack justify="center" mt="1rem">
           <Text fontSize=".5rem" fontFamily="'Baloo Bhaijaan 2', sans-serif">
             #FaceOfFinalist || #FaceOfThriamveftikos

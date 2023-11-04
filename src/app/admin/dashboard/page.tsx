@@ -8,7 +8,6 @@ const getAllUsers = async () => {
   const q = query(collection(db, 'user-biodata'));
   //,where('data.processed', '==', true);
 
-  console.log('Yesh');
   const querySnapshot = await getDocs(q);
   const userData: unknown[] = [];
   querySnapshot.forEach((doc) => {
@@ -20,7 +19,6 @@ const getAllUsers = async () => {
 const page = async () => {
   const cookieStore = cookies();
   const token = cookieStore.get('token');
-  console.log({ token });
   let data: unknown = {};
   if (token) {
     data = await getAllUsers();

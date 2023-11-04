@@ -131,8 +131,8 @@ export const DashboardPage = ({ data }: { data: any }) => {
               </Table>
             </TableContainer>
           </Box>
-          <Box opacity={0} pos="absolute">
-            <Flyer newRef={pageRef} data={info} />
+          <Box opacity={1} pos="absolute">
+            <Flyer newRef={pageRef} data={data[0]?.data} />
           </Box>
         </>
       )}
