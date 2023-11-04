@@ -165,7 +165,7 @@ export const DashboardPage = ({ data }: { data: any }) => {
             </TableContainer>
           </Box>
           <Box opacity={0} pos="absolute">
-            <Flyer newRef={pageRef} data={data[0]?.data} />
+            <Flyer newRef={pageRef} data={info} />
           </Box>
         </>
       )}

@@ -110,11 +110,22 @@ export const Flyer = ({ newRef, data }: { newRef: any; data: IMainForm }) => {
           <VStack w="full" justify="flex-end" h="full">
             <VStack w="full" align="flex-start" gap="0rem">
               <TextBox title="Nickname" value={data?.nickName} />
-              <TextBox title="Option" value={data?.option} />
-              <TextBox title="DOB" value={dayjs(data?.dob).format('MMM DD')} />
+              <HStack justify="space-between" w="full">
+                <TextBox title="Option" value={data?.option} noShape />
+                <TextBox
+                  title="DOB"
+                  value={dayjs(data?.dob).format('MMM DD')}
+                  noShape
+                  align
+                />
+              </HStack>
               <TextBox title="Favourite Lecturer" value={data?.favLecturer} />
               <TextBox title="Favourite Course" value={data?.favCourse} />
               <TextBox title="Hobbie" value={data?.hobbie} />
+              <TextBox
+                title="Relationship Status"
+                value={data?.relationshipStatus}
+              />
               <TextBox title="Departmental Crush" value={data?.crush} />
             </VStack>
             <Box
