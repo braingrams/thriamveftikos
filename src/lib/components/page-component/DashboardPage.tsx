@@ -44,7 +44,7 @@ export const DashboardPage = ({ data }: { data: any }) => {
   };
 
   const downloadFlyer = () => {
-    download(dataUrl, `${data?.nickName}.png`);
+    download(dataUrl, `${info?.nickName}.png`);
     onClose();
     !isMobile && router.refresh();
   };
