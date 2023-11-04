@@ -43,7 +43,7 @@ export const FlyerModal = ({
         mb="1rem"
         maxW="100%"
       >
-        <ModalBody>
+        <ModalBody overflow="auto">
           <Flyer newRef={pageRef} data={info} />
 
           <Flex justify="center">
