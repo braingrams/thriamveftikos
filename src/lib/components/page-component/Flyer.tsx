@@ -56,17 +56,14 @@ export const Flyer = ({ newRef, data }: { newRef: any; data: IMainForm }) => {
             >
               Of the day!
             </Text>
-            <Box
+            {/* <Box
               w="full"
               h="3in"
-              // transform="rotate(-5deg)"
-              //   bgColor="white"
               bgImage="url(/assets/frame.png)"
               bgSize="contain"
               bgRepeat="no-repeat"
               p="1.3rem"
             >
-              {/* <Box w="100%" h="100%" overflow="hidden"  */}
               <Box
                 w="71%"
                 h="55%"
@@ -83,6 +80,60 @@ export const Flyer = ({ newRef, data }: { newRef: any; data: IMainForm }) => {
                 />
               </Box>
               <VStack mx="auto" gap="0" mt="4rem">
+                <Text
+                  fontFamily="'UnifrakturCook', cursive"
+                  fontSize="1.1rem"
+                  textAlign="center"
+                  color="blue.600"
+                >
+                  {data?.firstName} {data?.lastName}
+                </Text>
+                <HStack
+                  fontSize=".5rem"
+                  gap=".2rem"
+                  bgColor="black"
+                  color="white"
+                  p=".1rem .7rem"
+                  borderRadius="20px"
+                  fontFamily="'Baloo Bhaijaan 2', sans-serif"
+                >
+                  <Icon as={BsInstagram} />
+                  <Text>@{data?.instagram}</Text>
+                </HStack>
+              </VStack>
+            </Box> */}
+            <Box
+              w="90%"
+              h="2.6in"
+              // transform="rotate(-5deg)"
+              //   bgColor="white"
+              // bgImage="url(/assets/frame.png)"
+              bgSize="contain"
+              bgRepeat="no-repeat"
+              border="15px solid #586261"
+              borderRadius="5px"
+              padding=".3rem"
+              boxShadow="0 0 8px 2px rgba(0, 0, 0, .3) inset, 0 5px 12px 3px rgba(0,0,0,.2)"
+              // p="1.3rem"
+            >
+              {/* <Box w="100%" h="100%" overflow="hidden"  */}
+              <Box
+                w="full"
+                h="full"
+                overflow="hidden"
+                border="3px solid #586261"
+                // transform="rotate(3deg)"
+                // mt="1.8rem"
+                // ml="2.6rem"
+              >
+                <Image
+                  src={data?.image || '/assets/sample.jpg'}
+                  w="full"
+                  h="full"
+                  objectFit="cover"
+                />
+              </Box>
+              <VStack mx="auto" gap="0" mt="2rem">
                 <Text
                   fontFamily="'UnifrakturCook', cursive"
                   fontSize="1.1rem"

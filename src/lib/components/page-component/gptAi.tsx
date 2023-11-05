@@ -8,7 +8,11 @@ const openai = new OpenAIApi({
   dangerouslyAllowBrowser: true,
 });
 
-export const responseGenerate = async (data: IMainForm, setMessage: any) => {
+export const responseGenerate = async (
+  data: IMainForm,
+  setMessage: any,
+  setSuccess: any
+) => {
   const completeOptions = {
     model: 'gpt-3.5-turbo',
     messages: [
@@ -39,5 +43,6 @@ export const responseGenerate = async (data: IMainForm, setMessage: any) => {
   console.log({ response });
   if (response.choices) {
     setMessage(response.choices[0].message.content);
+    setSuccess(true);
   }
 };

@@ -77,9 +77,8 @@ export const FormPage = () => {
       } else {
         await setDoc(userDocRef, {
           data,
-        }).then(() => {
-          responseGenerate(data, setMessage);
-          setSuccess(true);
+        }).then(async () => {
+           responseGenerate(data, setMessage, setSuccess);
         });
         reset();
       }
