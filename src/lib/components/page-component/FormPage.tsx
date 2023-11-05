@@ -78,7 +78,7 @@ export const FormPage = () => {
         await setDoc(userDocRef, {
           data,
         }).then(async () => {
-           responseGenerate(data, setMessage, setSuccess);
+          responseGenerate(data, setMessage, setSuccess);
         });
         reset();
       }
@@ -108,7 +108,7 @@ export const FormPage = () => {
             Fill in the form Below!
           </Text>
           {error && (
-            <Box bgColor="red.50" borderRadius="5px" p=".5rem 1rem">
+            <Box bgColor="red.50" borderRadius="5px" p=".5rem 1rem" mb="1rem">
               <Text>
                 Duplicate record Detected. It seems you have submitted your data
                 before. if not, contact any committee member for help
