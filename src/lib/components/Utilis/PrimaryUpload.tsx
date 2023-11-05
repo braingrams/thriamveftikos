@@ -55,7 +55,7 @@ export const PrimaryUpload = ({
               </VStack>
             )}
           </Circle>
-          {imageUrl.url && (
+          {!imageUrl.url && (
             <Text
               backgroundColor="blue.50"
               fontSize=".8rem"
