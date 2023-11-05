@@ -55,15 +55,17 @@ export const PrimaryUpload = ({
               </VStack>
             )}
           </Circle>
-          <Text
-            backgroundColor="blue.50"
-            fontSize=".8rem"
-            p=".4rem .8rem"
-            borderRadius="4px"
-          >
-            Choose picture wey go fine sha cause as you pose na so you go show
-            oo 🤣
-          </Text>
+          {imageUrl.url && (
+            <Text
+              backgroundColor="blue.50"
+              fontSize=".8rem"
+              p=".4rem .8rem"
+              borderRadius="4px"
+            >
+              Choose picture wey go fine sha cause as you pose na so you go show
+              oo 🤣
+            </Text>
+          )}
           <FormErrorMessage fontSize=".7rem" color="red">
             {(errors?.type === 'optionality' && `An Image is required`) ||
               errors?.message}

@@ -108,7 +108,7 @@ export const FormPage = () => {
             Fill in the form Below!
           </Text>
           {error && (
-            <Box bgColor="red.50" borderRadius="5px" p=".5rem 1rem" mb="1rem">
+            <Box bgColor="red.190" borderRadius="5px" p=".5rem 1rem" mb="1rem">
               <Text>
                 Duplicate record Detected. It seems you have submitted your data
                 before. if not, contact any committee member for help
