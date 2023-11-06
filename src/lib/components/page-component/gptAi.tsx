@@ -11,7 +11,8 @@ const openai = new OpenAIApi({
 export const responseGenerate = async (
   data: IMainForm,
   setMessage: any,
-  setSuccess: any
+  setSuccess: any,
+  setWaiting: any
 ) => {
   const completeOptions = {
     model: 'gpt-3.5-turbo',
@@ -43,6 +44,7 @@ export const responseGenerate = async (
   console.log({ response });
   if (response.choices) {
     setMessage(response.choices[0].message.content);
+    setWaiting(false);
     setSuccess(true);
   }
 };

@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Button, VStack, Text, Image } from '@chakra-ui/react';
+import { Box, Button, VStack, Text, Image, Spinner } from '@chakra-ui/react';
 import React, { useEffect, useRef, useState } from 'react';
 import { PrimaryInput } from '../Utilis/PrimaryInput';
 import { IMainForm } from '../Utilis/Schemas';
@@ -32,6 +32,7 @@ const schema = yup.object().shape({
   crush: yup.string().required(),
   relationshipStatus: yup.string().required(),
   instagram: yup.string().required(),
+  shegeExperience: yup.string().required(),
 });
 
 export const FormPage = () => {
@@ -54,6 +55,7 @@ export const FormPage = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [message, setMessage] = useState('');
+  const [waiting, setWaiting] = useState(false);
 
   const widgetApi = useRef<any>();
   const [imageUrl, setimageUrl] = useState<any>({ loading: false, url: '' });
@@ -78,7 +80,8 @@ export const FormPage = () => {
         await setDoc(userDocRef, {
           data,
         }).then(async () => {
-          responseGenerate(data, setMessage, setSuccess);
+          setWaiting(true);
+          responseGenerate(data, setMessage, setSuccess, setWaiting);
         });
         reset();
       }
@@ -96,7 +99,12 @@ export const FormPage = () => {
       <Box h="5rem" mx="auto" w="fit-content" mb="1rem">
         <Image src="/assets/logo.png" h="full" />
       </Box>
-      {success ? (
+      {waiting ? (
+        <VStack>
+          <Spinner size={'xl'} />
+          <Text>Hey Champ! Please wait while we save your data</Text>
+        </VStack>
+      ) : success ? (
         <Box bgColor="green.50" borderRadius="5px" p=".5rem 1rem">
           <Text textAlign="center" fontSize="1rem">
             {message}

@@ -111,7 +111,7 @@ export const ShegeFlyer = ({
             </VStack>
           </HStack>
           <Box pos="relative" h="1.6in" my="1rem">
-            <Box
+            <Flex
               h="full"
               w="full"
               boxShadow="0 0 8px 3px rgba(0,0,0,.1)"
@@ -120,6 +120,7 @@ export const ShegeFlyer = ({
               pos="relative"
               zIndex="2"
               overflow="hidden"
+              align="center"
             >
               <Box pos="absolute" left="3%" top="0" transform="scaleX(-1)">
                 <Text
@@ -152,7 +153,7 @@ export const ShegeFlyer = ({
                   "
                 </Text>
               </Box>
-            </Box>
+            </Flex>
             <Box
               p="1rem 1.5rem"
               h="full"
