@@ -14,6 +14,7 @@ export interface IMainForm {
   image?: string;
   processed?: false;
   instagram?: string;
+  shegeExperience?: string;
 }
 
 export interface ILoginForm {

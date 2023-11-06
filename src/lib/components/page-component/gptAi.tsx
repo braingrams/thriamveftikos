@@ -11,14 +11,15 @@ const openai = new OpenAIApi({
 export const responseGenerate = async (
   data: IMainForm,
   setMessage: any,
-  setSuccess: any
+  setSuccess: any,
+  setWaiting: any
 ) => {
   const completeOptions = {
     model: 'gpt-3.5-turbo',
     messages: [
       {
         role: 'user',
-        content: `Write an amazing and praising sentence for a finalist who had struggled their 5 years journey through university in the department of pure and applied biology with the following biodata with emoji 
+        content: `Write an amazing and praising sentence for a finalist who had struggled their 5 years journey through university in the department of pure and applied biology using victory, fighter and conqueror as keywords with the following biodata with emoji 
     fullname: ${data?.firstName} ${data?.lastName}
     nickname: ${data?.nickName}
     favourite lecturer: ${data?.favLecturer}
@@ -43,6 +44,7 @@ export const responseGenerate = async (
   console.log({ response });
   if (response.choices) {
     setMessage(response.choices[0].message.content);
+    setWaiting(false);
     setSuccess(true);
   }
 };

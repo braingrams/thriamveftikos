@@ -133,7 +133,7 @@ export const Flyer = ({ newRef, data }: { newRef: any; data: IMainForm }) => {
                   objectFit="cover"
                 />
               </Box>
-              <VStack mx="auto" gap="0" mt="2rem">
+              <VStack mx="auto" gap="0" mt="1.3rem">
                 <Text
                   fontFamily="'UnifrakturCook', cursive"
                   fontSize="1.1rem"
