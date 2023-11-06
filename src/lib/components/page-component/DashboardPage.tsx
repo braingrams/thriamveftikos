@@ -110,7 +110,7 @@ export const DashboardPage = ({ data }: { data: any }) => {
             <Text mb="1rem">
               List of students that have submitted their data
             </Text>
-            <TableContainer w="full" maxH="90vh">
+            <TableContainer w="full" maxH="100%">
               <Table border="1px solid #e5e5e5" variant="simple">
                 <Thead>
                   <Tr>
