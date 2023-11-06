@@ -113,7 +113,7 @@ export const Flyer = ({ newRef, data }: { newRef: any; data: IMainForm }) => {
               border="15px solid #586261"
               borderRadius="5px"
               padding=".3rem"
-              boxShadow="0 0 8px 2px rgba(0, 0, 0, .3) inset, 0 5px 12px 3px rgba(0,0,0,.2)"
+              // boxShadow="0 0 8px 2px rgba(0, 0, 0, .3) inset, 0 5px 12px 3px rgba(0,0,0,.2)"
               // p="1.3rem"
             >
               {/* <Box w="100%" h="100%" overflow="hidden"  */}
