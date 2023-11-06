@@ -82,7 +82,7 @@ export const ShegeFlyer = ({
               size="4rem"
               overflow="hidden"
               //   borderRadius="8px"
-              boxShadow="0 0 8px 3px rgba(0,0,0,.1)"
+              //   boxShadow="0 0 8px 3px rgba(0,0,0,.1)"
             >
               <Image
                 src={data?.image || '/assets/sample.jpg'}
@@ -114,7 +114,7 @@ export const ShegeFlyer = ({
             <Flex
               h="full"
               w="full"
-              boxShadow="0 0 8px 3px rgba(0,0,0,.1)"
+              //   boxShadow="0 0 8px 3px rgba(0,0,0,.1)"
               bgColor="white"
               borderRadius="20px"
               pos="relative"
@@ -158,7 +158,7 @@ export const ShegeFlyer = ({
               p="1rem 1.5rem"
               h="full"
               w="full"
-              boxShadow="0 0 8px 3px rgba(0,0,0,.1)"
+              //   boxShadow="0 0 8px 3px rgba(0,0,0,.1)"
               bgColor="brand.100"
               borderRadius="20px"
               pos="absolute"
