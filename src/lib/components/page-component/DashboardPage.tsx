@@ -30,19 +30,45 @@ import { FlyerModal } from './FlyerModal';
 const download = require('downloadjs');
 import { db } from '../firebase/firebase';
 import { doc, updateDoc } from 'firebase/firestore';
+import { ShegeFlyer } from './ShegeFlyer';
+import { ShegeModal } from './ShegeModal';
 
 export const DashboardPage = ({ data }: { data: any }) => {
   const pageRef = useRef();
+  const shegeRef = useRef();
   const router = useRouter();
   const [info, setInfo] = useState<IMainForm>({});
   const [loading, setLoading] = useState({ id: '' });
   const [dataUrl, setDataUrl] = useState('');
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const {
+    isOpen: isOpened,
+    onClose: onClosed,
+    onOpen: onOpened,
+  } = useDisclosure();
   const { width } = useWindowSize();
   const isMobile = width <= 750;
   const generateFlyer = (data: IMainForm) => {
     setInfo(data as IMainForm);
-    generateImageProfile(data, pageRef, setLoading, onOpen, setDataUrl);
+    generateImageProfile(
+      data,
+      pageRef,
+      setLoading,
+      onOpen,
+      setDataUrl,
+      data?.email
+    );
+  };
+  const generateShegeFlyer = (data: IMainForm) => {
+    setInfo(data as IMainForm);
+    generateImageProfile(
+      data,
+      shegeRef,
+      setLoading,
+      onOpened,
+      setDataUrl,
+      data?.nickName
+    );
   };
 
   const downloadFlyer = async () => {
@@ -54,6 +80,11 @@ export const DashboardPage = ({ data }: { data: any }) => {
       onClose();
       !isMobile && router.refresh();
     });
+  };
+  const downloadShegeFlyer = async () => {
+    download(dataUrl, `${info?.nickName} shege.png`);
+    onClose();
+    !isMobile && router.refresh();
   };
   return (
     <Box h="100vh" overflowX="hidden" pos="relative">
@@ -92,6 +123,7 @@ export const DashboardPage = ({ data }: { data: any }) => {
                     <TableHead name="Option" />
                     <TableHead name="Status" />
                     <TableHead name="Action" />
+                    <TableHead name="Shege" />
                   </Tr>
                 </Thead>
 
@@ -157,6 +189,18 @@ export const DashboardPage = ({ data }: { data: any }) => {
                             View Flyer
                           </Button>
                         </td>
+                        <td>
+                          <Button
+                            bgColor="black"
+                            color="white"
+                            fontSize=".8rem"
+                            h="2.6rem"
+                            onClick={() => generateShegeFlyer(user)}
+                            isLoading={loading.id == user?.nickName}
+                          >
+                            View Shege
+                          </Button>
+                        </td>
                       </Tr>
                     );
                   })}
@@ -166,6 +210,9 @@ export const DashboardPage = ({ data }: { data: any }) => {
           </Box>
           <Box opacity={0} pos="absolute">
             <Flyer newRef={pageRef} data={info} />
+          </Box>
+          <Box opacity={0} pos="absolute">
+            <ShegeFlyer newRef={shegeRef} data={info} />
           </Box>
         </>
       )}
@@ -177,6 +224,15 @@ export const DashboardPage = ({ data }: { data: any }) => {
           onClose={onClose}
           pageRef={pageRef}
           downloadFunc={downloadFlyer}
+        />
+      )}
+      {isOpened && (
+        <ShegeModal
+          info={info}
+          isOpen={isOpened}
+          onClose={onClosed}
+          pageRef={shegeRef}
+          downloadFunc={downloadShegeFlyer}
         />
       )}
     </Box>

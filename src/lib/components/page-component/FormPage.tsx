@@ -98,7 +98,7 @@ export const FormPage = () => {
       </Box>
       {success ? (
         <Box bgColor="green.50" borderRadius="5px" p=".5rem 1rem">
-          <Text textAlign="center" fontSize=".8rem">
+          <Text textAlign="center" fontSize="1rem">
             {message}
           </Text>
         </Box>
@@ -108,7 +108,7 @@ export const FormPage = () => {
             Fill in the form Below!
           </Text>
           {error && (
-            <Box bgColor="red.190" borderRadius="5px" p=".5rem 1rem" mb="1rem">
+            <Box bgColor="red.100" borderRadius="5px" p=".5rem 1rem" mb="1rem">
               <Text>
                 Duplicate record Detected. It seems you have submitted your data
                 before. if not, contact any committee member for help
@@ -223,6 +223,13 @@ export const FormPage = () => {
                 placeholder="Type in here"
                 error={errors.quote}
                 label="Favourite Quote"
+              />
+              <PrimaryTextArea<IMainForm>
+                name="shegeExperience"
+                register={register}
+                placeholder="Type in here"
+                error={errors.shegeExperience}
+                label="Describe your shege experience"
               />
 
               <Button

@@ -18,7 +18,7 @@ export const responseGenerate = async (
     messages: [
       {
         role: 'user',
-        content: `Write an amazing and praising sentence for a finalist who had struggled their 5 years journey through university in the department of pure and applied biology with the following biodata with emoji 
+        content: `Write an amazing and praising sentence for a finalist who had struggled their 5 years journey through university in the department of pure and applied biology using victory, fighter and conqueror as keywords with the following biodata with emoji 
     fullname: ${data?.firstName} ${data?.lastName}
     nickname: ${data?.nickName}
     favourite lecturer: ${data?.favLecturer}

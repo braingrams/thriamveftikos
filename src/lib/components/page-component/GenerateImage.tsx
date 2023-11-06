@@ -6,10 +6,11 @@ export const generateImageProfile = async (
   pageRef: any,
   setLoading: any,
   onOpen: any,
-  setDataUrl: any
+  setDataUrl: any,
+  load: any
 ) => {
   setDataUrl('');
-  setLoading({ id: data?.email });
+  setLoading({ id: load });
 
   await toPng(pageRef.current)
     .then(async function (dataUrl) {
