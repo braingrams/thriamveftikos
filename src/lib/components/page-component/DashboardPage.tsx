@@ -76,7 +76,11 @@ export const DashboardPage = ({ data }: { data: any }) => {
     await updateDoc(userRef, {
       data: { ...info, processed: true },
     }).then(async () => {
-      download(dataUrl, `${info?.nickName}.png`);
+      // download(dataUrl, `${info?.nickName}.png`);
+      const link = document.createElement('a');
+      link.download = `${info?.nickName}.png`;
+      link.href = dataUrl;
+      link.click();
       onClose();
       !isMobile && router.refresh();
     });
@@ -208,7 +212,7 @@ export const DashboardPage = ({ data }: { data: any }) => {
               </Table>
             </TableContainer>
           </Box>
-          <Box opacity={0} pos="absolute">
+          <Box opacity={1} pos="absolute">
             <Flyer newRef={pageRef} data={info} />
           </Box>
           <Box opacity={0} pos="absolute">
@@ -222,7 +226,6 @@ export const DashboardPage = ({ data }: { data: any }) => {
           info={info}
           isOpen={isOpen}
           onClose={onClose}
-          pageRef={pageRef}
           downloadFunc={downloadFlyer}
         />
       )}
@@ -231,7 +234,6 @@ export const DashboardPage = ({ data }: { data: any }) => {
           info={info}
           isOpen={isOpened}
           onClose={onClosed}
-          pageRef={shegeRef}
           downloadFunc={downloadShegeFlyer}
         />
       )}

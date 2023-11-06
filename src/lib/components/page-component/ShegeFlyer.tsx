@@ -19,7 +19,7 @@ export const ShegeFlyer = ({
   newRef,
   data,
 }: {
-  newRef: any;
+  newRef?: any;
   data: IMainForm;
 }) => {
   return (

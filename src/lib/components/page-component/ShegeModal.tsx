@@ -20,7 +20,7 @@ export const ShegeModal = ({
 }: {
   isOpen: boolean;
   onClose: any;
-  pageRef: any;
+  pageRef?: any;
   info: IMainForm;
   downloadFunc: any;
 }) => {

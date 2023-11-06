@@ -5,7 +5,7 @@ import { TextBox } from '../Utilis/TextBox';
 import { BsInstagram } from 'react-icons/bs';
 import dayjs from 'dayjs';
 
-export const Flyer = ({ newRef, data }: { newRef: any; data: IMainForm }) => {
+export const Flyer = ({ newRef, data }: { newRef?: any; data: IMainForm }) => {
   return (
     <Box
       ref={newRef}
