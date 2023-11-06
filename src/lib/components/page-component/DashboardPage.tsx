@@ -191,7 +191,7 @@ export const DashboardPage = ({ data }: { data: any }) => {
                         </td>
                         <td>
                           <Button
-                            bgColor="black"
+                            bgColor="brand.100"
                             color="white"
                             fontSize=".8rem"
                             h="2.6rem"
