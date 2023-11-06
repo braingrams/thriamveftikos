@@ -211,7 +211,7 @@ export const DashboardPage = ({ data }: { data: any }) => {
           <Box opacity={0} pos="absolute">
             <Flyer newRef={pageRef} data={info} />
           </Box>
-          <Box opacity={1} pos="absolute">
+          <Box opacity={0} pos="absolute">
             <ShegeFlyer newRef={shegeRef} data={info} />
           </Box>
         </>
