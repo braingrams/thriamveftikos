@@ -15,7 +15,7 @@ export const generateImageProfile = async (
   }
   setLoading({ id: load });
 
-  await toPng(pageRef.current, { pixelRatio: 1, cacheBust: true })
+  await toPng(pageRef.current, { pixelRatio: 5, cacheBust: true })
     .then(async function (dataUrl) {
       setDataUrl(dataUrl);
       onOpen();
