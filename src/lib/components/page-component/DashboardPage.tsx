@@ -76,7 +76,7 @@ export const DashboardPage = ({ data }: { data: any }) => {
   };
   const generateShegeFlyer = (data: IMainForm, load: string) => {
     setInfo(data as IMainForm);
-    generateImageProfile(
+    return generateImageProfile(
       data,
       shegeRef,
       setLoading,
@@ -121,6 +121,9 @@ export const DashboardPage = ({ data }: { data: any }) => {
     users?.forEach(async (user) => {
       await generateFlyer(user, 'multiple').then((x: any) => {
         downloadFlyer(user, x);
+      });
+      await generateShegeFlyer(user, 'multiple').then((x: any) => {
+        downloadShegeFlyer(user, x);
       });
     });
   };
