@@ -14,8 +14,10 @@ import {
   VStack,
   Image,
   useDisclosure,
+  Input,
+  Spinner,
 } from '@chakra-ui/react';
-import React, { useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { TableBody, TableHead } from '../Utilis/TableData';
 import { IMainForm } from '../Utilis/Schemas';
 import dayjs from 'dayjs';
@@ -24,21 +26,24 @@ import { Flyer } from './Flyer';
 import { BsCheckCircleFill } from 'react-icons/bs';
 import { FaTimesCircle } from 'react-icons/fa';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useWindowSize } from 'react-use';
 import { FlyerModal } from './FlyerModal';
 const download = require('downloadjs');
 import { db } from '../firebase/firebase';
-import { doc, updateDoc } from 'firebase/firestore';
+import { deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { ShegeFlyer } from './ShegeFlyer';
 import { ShegeModal } from './ShegeModal';
+import { AiFillDelete } from 'react-icons/ai';
+import { useDebouncedCallback } from 'use-debounce';
+import { EditUserModal } from './EditUserModal';
 
 export const DashboardPage = ({ data }: { data: any }) => {
   const pageRef = useRef();
   const shegeRef = useRef();
   const router = useRouter();
   const [info, setInfo] = useState<IMainForm>({});
-  const [loading, setLoading] = useState({ id: '' });
+  const [loading, setLoading] = useState({ id: '', state: false });
   const [dataUrl, setDataUrl] = useState('');
   const { isOpen, onClose, onOpen } = useDisclosure();
   const {
@@ -46,6 +51,13 @@ export const DashboardPage = ({ data }: { data: any }) => {
     onClose: onClosed,
     onOpen: onOpened,
   } = useDisclosure();
+  const {
+    isOpen: isOpens,
+    onClose: onCloses,
+    onOpen: onOpens,
+  } = useDisclosure();
+  const pathname = usePathname();
+  const searchParams = useSearchParams()!;
   const { width } = useWindowSize();
   const isMobile = width <= 750;
   const generateFlyer = (data: IMainForm) => {
@@ -86,6 +98,29 @@ export const DashboardPage = ({ data }: { data: any }) => {
     onClose();
     !isMobile && router.refresh();
   };
+  const deleteItem = async (data: IMainForm) => {
+    setLoading({ id: data?.email as string, state: true });
+    await deleteDoc(doc(db, 'user-biodata', data.email as string));
+    router.refresh();
+  };
+  const editUserInfo = (data: IMainForm) => {
+    setInfo(data);
+    onOpens();
+  };
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams);
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
+  const searchUser = useDebouncedCallback((value) => {
+    router.push(pathname + '?' + createQueryString('search', value));
+  }, 1000);
+
   return (
     <Box h="100vh" overflowX="hidden" pos="relative">
       <Box h="5rem" mx="auto" w="fit-content" mb="1rem">
@@ -108,9 +143,16 @@ export const DashboardPage = ({ data }: { data: any }) => {
               Hello Admin,
             </Text>
             <Text mb="1rem">
-              List of students that have submitted their data
+              List of students that have submitted their data ({data?.length})
             </Text>
-            <TableContainer w="full" maxH="90vh">
+            <Box mb="1rem">
+              <Input
+                placeholder="search by firstname"
+                type="search"
+                onChange={(e) => searchUser(e.target.value)}
+              />
+            </Box>
+            <TableContainer w="full" maxH="100%">
               <Table border="1px solid #e5e5e5" variant="simple">
                 <Thead>
                   <Tr>
@@ -124,6 +166,7 @@ export const DashboardPage = ({ data }: { data: any }) => {
                     <TableHead name="Status" />
                     <TableHead name="Action" />
                     <TableHead name="Shege" />
+                    <TableHead name="Delete" />
                   </Tr>
                 </Thead>
 
@@ -168,7 +211,10 @@ export const DashboardPage = ({ data }: { data: any }) => {
                           border
                           value="1px solid #e5e5e5"
                         />
-                        <Td borderRight="1px solid #e5e5e5">
+                        <Td
+                          borderRight="1px solid #e5e5e5"
+                          paddingInlineStart="1rem"
+                        >
                           <Flex justify="center" pr="1rem">
                             {user?.processed ? (
                               <Icon as={BsCheckCircleFill} color="green.400" />
@@ -177,7 +223,10 @@ export const DashboardPage = ({ data }: { data: any }) => {
                             )}
                           </Flex>
                         </Td>
-                        <td>
+                        <Td
+                          borderRight="1px solid #e5e5e5"
+                          paddingInlineStart="1rem"
+                        >
                           <Button
                             bgColor="black"
                             color="white"
@@ -188,8 +237,11 @@ export const DashboardPage = ({ data }: { data: any }) => {
                           >
                             View Flyer
                           </Button>
-                        </td>
-                        <td>
+                        </Td>
+                        <Td
+                          borderRight="1px solid #e5e5e5"
+                          paddingInlineStart="1rem"
+                        >
                           <Button
                             bgColor="brand.100"
                             color="white"
@@ -200,7 +252,26 @@ export const DashboardPage = ({ data }: { data: any }) => {
                           >
                             View Shege
                           </Button>
-                        </td>
+                        </Td>
+                        <Td>
+                          <Flex justify="center" pr="1rem">
+                            {loading?.id == user?.email && loading.state ? (
+                              <Spinner />
+                            ) : (
+                              <Icon
+                                as={AiFillDelete}
+                                color="red"
+                                onClick={() => deleteItem(user)}
+                              />
+                            )}
+                          </Flex>
+                        </Td>
+                        <TableBody
+                          name={'Edit'}
+                          border
+                          value="1px solid #e5e5e5"
+                          onClick={() => editUserInfo(user)}
+                        />
                       </Tr>
                     );
                   })}
@@ -222,7 +293,6 @@ export const DashboardPage = ({ data }: { data: any }) => {
           info={info}
           isOpen={isOpen}
           onClose={onClose}
-          pageRef={pageRef}
           downloadFunc={downloadFlyer}
         />
       )}
@@ -231,9 +301,11 @@ export const DashboardPage = ({ data }: { data: any }) => {
           info={info}
           isOpen={isOpened}
           onClose={onClosed}
-          pageRef={shegeRef}
           downloadFunc={downloadShegeFlyer}
         />
+      )}
+      {isOpens && (
+        <EditUserModal info={info} isOpen={isOpens} onClose={onCloses} />
       )}
     </Box>
   );
