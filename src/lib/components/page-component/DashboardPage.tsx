@@ -100,7 +100,7 @@ export const DashboardPage = ({ data }: { data: any }) => {
   };
   const downloadShegeFlyer = async (info: IMainForm, dataUrl: string) => {
     download(dataUrl, `${info?.nickName} shege.png`);
-    onClose();
+    onClosed();
     setLoading({ id: '', state: false });
     !isMobile && router.refresh();
   };
