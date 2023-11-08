@@ -156,8 +156,12 @@ export const DashboardPage = ({ data }: { data: any }) => {
       ) : (
         <>
           <Box p="0 2rem">
-            <HStack justify="space-between">
-              <Box my="1rem">
+            <HStack
+              justify="space-between"
+              flexDir={['column', 'row']}
+              my="1rem"
+            >
+              <Box>
                 <Text fontWeight={600} fontSize="1.3rem">
                   Hello Admin,
                 </Text>
