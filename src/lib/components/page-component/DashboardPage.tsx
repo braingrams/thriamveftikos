@@ -114,7 +114,7 @@ export const DashboardPage = ({ data }: { data: any }) => {
     onOpens();
   };
 
-  const nonProcessedUsers = data.filter((x: any) => !x.data.processed);
+  const nonProcessedUsers = data?.filter((x: any) => !x?.data.processed);
   const downloadFiveRandomData = () => {
     const items = getRandom(nonProcessedUsers, 5);
     const users = items?.map((item: any, i: number) => item.data);
