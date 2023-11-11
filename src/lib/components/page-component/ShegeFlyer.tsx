@@ -106,7 +106,7 @@ export const ShegeFlyer = ({
                 fontFamily="'Baloo Bhaijaan 2', sans-serif"
                 fontWeight={500}
               >
-                {data?.firstName} {data?.lastName}
+                {`${data?.firstName} ${data?.lastName}`}
               </Text>
             </VStack>
           </HStack>

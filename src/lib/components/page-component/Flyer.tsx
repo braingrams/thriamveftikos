@@ -140,7 +140,7 @@ export const Flyer = ({ newRef, data }: { newRef?: any; data: IMainForm }) => {
                   textAlign="center"
                   color="blue.600"
                 >
-                  {data?.firstName} {data?.lastName}
+                  {`${data?.firstName} ${data?.lastName}`}
                 </Text>
                 <HStack
                   fontSize=".5rem"
