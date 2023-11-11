@@ -17,12 +17,14 @@ export const ShegeModal = ({
   pageRef,
   info,
   downloadFunc,
+  dataUrl,
 }: {
   isOpen: boolean;
   onClose: any;
   pageRef?: any;
   info: IMainForm;
   downloadFunc: any;
+  dataUrl: string;
 }) => {
   return (
     <Modal
@@ -53,7 +55,7 @@ export const ShegeModal = ({
               color="white"
               fontSize=".8rem"
               h="2.6rem"
-              onClick={() => downloadFunc()}
+              onClick={() => downloadFunc(info, dataUrl)}
               my="2rem"
 
               // isLoading={loading}

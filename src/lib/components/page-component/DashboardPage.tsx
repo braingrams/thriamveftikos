@@ -16,6 +16,7 @@ import {
   useDisclosure,
   Input,
   Spinner,
+  HStack,
 } from '@chakra-ui/react';
 import React, { useCallback, useRef, useState } from 'react';
 import { TableBody, TableHead } from '../Utilis/TableData';
@@ -37,6 +38,7 @@ import { ShegeModal } from './ShegeModal';
 import { AiFillDelete } from 'react-icons/ai';
 import { useDebouncedCallback } from 'use-debounce';
 import { EditUserModal } from './EditUserModal';
+import getRandom from '../Utilis/getRandomArray';
 
 export const DashboardPage = ({ data }: { data: any }) => {
   const pageRef = useRef();
@@ -60,42 +62,46 @@ export const DashboardPage = ({ data }: { data: any }) => {
   const searchParams = useSearchParams()!;
   const { width } = useWindowSize();
   const isMobile = width <= 750;
-  const generateFlyer = (data: IMainForm) => {
+  const generateFlyer = (data: IMainForm, load: string) => {
     setInfo(data as IMainForm);
-    generateImageProfile(
+    return generateImageProfile(
       data,
       pageRef,
       setLoading,
       onOpen,
       setDataUrl,
-      data?.email
+      load,
+      load == 'multiple' ? true : false
     );
   };
-  const generateShegeFlyer = (data: IMainForm) => {
+  const generateShegeFlyer = (data: IMainForm, load: string) => {
     setInfo(data as IMainForm);
-    generateImageProfile(
+    return generateImageProfile(
       data,
       shegeRef,
       setLoading,
       onOpened,
       setDataUrl,
-      data?.nickName
+      load,
+      load == 'multiple' ? true : false
     );
   };
 
-  const downloadFlyer = async () => {
+  const downloadFlyer = async (info: IMainForm, dataUrl: string) => {
     const userRef = doc(db, 'user-biodata', info?.email as string);
     await updateDoc(userRef, {
       data: { ...info, processed: true },
     }).then(async () => {
       download(dataUrl, `${info?.nickName}.png`);
       onClose();
+      setLoading({ id: '', state: false });
       !isMobile && router.refresh();
     });
   };
-  const downloadShegeFlyer = async () => {
+  const downloadShegeFlyer = async (info: IMainForm, dataUrl: string) => {
     download(dataUrl, `${info?.nickName} shege.png`);
-    onClose();
+    onClosed();
+    setLoading({ id: '', state: false });
     !isMobile && router.refresh();
   };
   const deleteItem = async (data: IMainForm) => {
@@ -106,6 +112,20 @@ export const DashboardPage = ({ data }: { data: any }) => {
   const editUserInfo = (data: IMainForm) => {
     setInfo(data);
     onOpens();
+  };
+
+  const nonProcessedUsers = data.filter((x: any) => !x.data.processed);
+  const downloadFiveRandomData = () => {
+    const items = getRandom(nonProcessedUsers, 5);
+    const users = items?.map((item: any, i: number) => item.data);
+    users?.forEach(async (user) => {
+      await generateFlyer(user, 'multiple').then((x: any) => {
+        downloadFlyer(user, x);
+      });
+      await generateShegeFlyer(user, 'multiple').then((x: any) => {
+        downloadShegeFlyer(user, x);
+      });
+    });
   };
 
   const createQueryString = useCallback(
@@ -139,12 +159,27 @@ export const DashboardPage = ({ data }: { data: any }) => {
       ) : (
         <>
           <Box p="0 2rem">
-            <Text my="1rem" fontWeight={600} fontSize="1.3rem">
-              Hello Admin,
-            </Text>
-            <Text mb="1rem">
-              List of students that have submitted their data ({data?.length})
-            </Text>
+            <HStack
+              justify="space-between"
+              flexDir={['column', 'row']}
+              my="1rem"
+            >
+              <Box>
+                <Text fontWeight={600} fontSize="1.3rem">
+                  Hello Admin,
+                </Text>
+                <Text mt="1rem">
+                  List of students that have submitted their data (
+                  {data?.length})
+                </Text>
+              </Box>
+              <Button
+                onClick={() => downloadFiveRandomData()}
+                isLoading={loading.id == 'multiple'}
+              >
+                Download 5 Items
+              </Button>
+            </HStack>
             <Box mb="1rem">
               <Input
                 placeholder="search by firstname"
@@ -232,7 +267,9 @@ export const DashboardPage = ({ data }: { data: any }) => {
                             color="white"
                             fontSize=".8rem"
                             h="2.6rem"
-                            onClick={() => generateFlyer(user)}
+                            onClick={() =>
+                              generateFlyer(user, user?.email as string)
+                            }
                             isLoading={loading.id == user?.email}
                           >
                             View Flyer
@@ -247,7 +284,9 @@ export const DashboardPage = ({ data }: { data: any }) => {
                             color="white"
                             fontSize=".8rem"
                             h="2.6rem"
-                            onClick={() => generateShegeFlyer(user)}
+                            onClick={() =>
+                              generateShegeFlyer(user, user?.nickName as string)
+                            }
                             isLoading={loading.id == user?.nickName}
                           >
                             View Shege
@@ -294,6 +333,7 @@ export const DashboardPage = ({ data }: { data: any }) => {
           isOpen={isOpen}
           onClose={onClose}
           downloadFunc={downloadFlyer}
+          dataUrl={dataUrl}
         />
       )}
       {isOpened && (
@@ -302,6 +342,7 @@ export const DashboardPage = ({ data }: { data: any }) => {
           isOpen={isOpened}
           onClose={onClosed}
           downloadFunc={downloadShegeFlyer}
+          dataUrl={dataUrl}
         />
       )}
       {isOpens && (

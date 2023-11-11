@@ -56,6 +56,7 @@ export const EditUserModal = ({
       option: info?.option,
       quote: info?.quote,
       image: info?.image,
+      hobbie: info?.hobbie,
       favLecturer: info?.favLecturer,
       favCourse: info?.favCourse,
       crush: info?.crush,
