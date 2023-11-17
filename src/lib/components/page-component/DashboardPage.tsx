@@ -371,7 +371,7 @@ export const DashboardPage = ({ data }: { data: any }) => {
               <Flyer newRef={dlRefs[i]} data={x} />
             ))}
           </Box>
-          <Box opacity={0} pos="absolute" top="0">
+          <Box opacity={0} pos="absolute">
             {selected.map((x: IMainForm, i: number) => (
               <ShegeFlyer newRef={elRefs[i]} data={x} />
             ))}
