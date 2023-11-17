@@ -11,16 +11,16 @@ export const generateImageProfile = async (
   isMultiple: boolean
 ) => {
   setDataUrl('');
-  if (!data || pageRef.current == null) {
+  if (!data || pageRef?.current == null) {
     return;
   }
-  setLoading({ id: load });
 
-  let url;
-  await toPng(pageRef.current, { pixelRatio: 5, cacheBust: true })
+  let url = '';
+  setLoading({ id: load });
+  await toPng(pageRef.current, { pixelRatio: 5 })
     .then(async function (dataUrl) {
-      setDataUrl(dataUrl);
       url = dataUrl;
+      setDataUrl(dataUrl);
       !isMultiple && onOpen();
     })
     .catch((error: any) => {

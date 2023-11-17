@@ -18,7 +18,13 @@ import {
   Spinner,
   HStack,
 } from '@chakra-ui/react';
-import React, { useCallback, useRef, useState } from 'react';
+import React, {
+  createRef,
+  useCallback,
+  useRef,
+  useState,
+  useEffect,
+} from 'react';
 import { TableBody, TableHead } from '../Utilis/TableData';
 import { IMainForm } from '../Utilis/Schemas';
 import dayjs from 'dayjs';
@@ -47,6 +53,23 @@ export const DashboardPage = ({ data }: { data: any }) => {
   const [info, setInfo] = useState<IMainForm>({});
   const [loading, setLoading] = useState({ id: '', state: false });
   const [dataUrl, setDataUrl] = useState('');
+  const [selected, setSelected] = useState<any>([]);
+  const [elRefs, setElRefs] = React.useState([]);
+  const [dlRefs, setDlRefs] = React.useState([]);
+  useEffect(() => {
+    // add or remove refs
+    setElRefs((elRefs) =>
+      Array(selected.length)
+        .fill(selected.length)
+        .map((_, i) => elRefs[i] || createRef())
+    );
+    setDlRefs((dlRefs) =>
+      Array(selected.length)
+        .fill(selected.length)
+        .map((_, i) => dlRefs[i] || createRef())
+    );
+  }, [selected]);
+
   const { isOpen, onClose, onOpen } = useDisclosure();
   const {
     isOpen: isOpened,
@@ -62,11 +85,11 @@ export const DashboardPage = ({ data }: { data: any }) => {
   const searchParams = useSearchParams()!;
   const { width } = useWindowSize();
   const isMobile = width <= 750;
-  const generateFlyer = (data: IMainForm, load: string) => {
+  const generateFlyer = (data: IMainForm, load: string, ref: any) => {
     setInfo(data as IMainForm);
     return generateImageProfile(
       data,
-      pageRef,
+      ref,
       setLoading,
       onOpen,
       setDataUrl,
@@ -74,11 +97,11 @@ export const DashboardPage = ({ data }: { data: any }) => {
       load == 'multiple' ? true : false
     );
   };
-  const generateShegeFlyer = (data: IMainForm, load: string) => {
+  const generateShegeFlyer = (data: IMainForm, load: string, ref: any) => {
     setInfo(data as IMainForm);
     return generateImageProfile(
       data,
-      shegeRef,
+      ref,
       setLoading,
       onOpened,
       setDataUrl,
@@ -100,8 +123,8 @@ export const DashboardPage = ({ data }: { data: any }) => {
   };
   const downloadShegeFlyer = async (info: IMainForm, dataUrl: string) => {
     download(dataUrl, `${info?.nickName} shege.png`);
-    onClosed();
     setLoading({ id: '', state: false });
+    onClosed();
     !isMobile && router.refresh();
   };
   const deleteItem = async (data: IMainForm) => {
@@ -114,16 +137,31 @@ export const DashboardPage = ({ data }: { data: any }) => {
     onOpens();
   };
 
-  const nonProcessedUsers = data.filter((x: any) => !x.data.processed);
-  const downloadFiveRandomData = () => {
+  const asyncForEach = async (array: any, callback: any) => {
+    for (let index = 0; index < array.length; index++) {
+      await callback(array[index], index, array);
+    }
+  };
+
+  const nonProcessedUsers = !data.error
+    ? data.filter((x: any) => x?.data?.processed)
+    : [];
+  const downloadFiveRandomData = async () => {
     const items = getRandom(nonProcessedUsers, 5);
     const users = items?.map((item: any, i: number) => item.data);
-    users?.forEach(async (user) => {
-      await generateFlyer(user, 'multiple').then((x: any) => {
-        downloadFlyer(user, x);
+    setSelected(users);
+    await asyncForEach(users, async (user: IMainForm, i: number) => {
+      await generateFlyer(user, 'multiple', dlRefs[i]).then((x: any) => {
+        if (x !== undefined) {
+          downloadFlyer(user, x);
+        }
+        return;
       });
-      await generateShegeFlyer(user, 'multiple').then((x: any) => {
-        downloadShegeFlyer(user, x);
+      await generateShegeFlyer(user, 'multiple', elRefs[i]).then((x: any) => {
+        if (x !== undefined) {
+          downloadShegeFlyer(user, x);
+        }
+        return;
       });
     });
   };
@@ -267,9 +305,14 @@ export const DashboardPage = ({ data }: { data: any }) => {
                             color="white"
                             fontSize=".8rem"
                             h="2.6rem"
-                            onClick={() =>
-                              generateFlyer(user, user?.email as string)
-                            }
+                            onClick={() => {
+                              setSelected([user]);
+                              generateFlyer(
+                                user,
+                                user?.email as string,
+                                dlRefs[0]
+                              );
+                            }}
                             isLoading={loading.id == user?.email}
                           >
                             View Flyer
@@ -284,9 +327,14 @@ export const DashboardPage = ({ data }: { data: any }) => {
                             color="white"
                             fontSize=".8rem"
                             h="2.6rem"
-                            onClick={() =>
-                              generateShegeFlyer(user, user?.nickName as string)
-                            }
+                            onClick={() => {
+                              setSelected([user]);
+                              generateShegeFlyer(
+                                user,
+                                user?.nickName as string,
+                                elRefs[0]
+                              );
+                            }}
                             isLoading={loading.id == user?.nickName}
                           >
                             View Shege
@@ -319,10 +367,14 @@ export const DashboardPage = ({ data }: { data: any }) => {
             </TableContainer>
           </Box>
           <Box opacity={0} pos="absolute">
-            <Flyer newRef={pageRef} data={info} />
+            {selected.map((x: IMainForm, i: number) => (
+              <Flyer newRef={dlRefs[i]} data={x} />
+            ))}
           </Box>
-          <Box opacity={0} pos="absolute">
-            <ShegeFlyer newRef={shegeRef} data={info} />
+          <Box opacity={0} pos="absolute" top="0">
+            {selected.map((x: IMainForm, i: number) => (
+              <ShegeFlyer newRef={elRefs[i]} data={x} />
+            ))}
           </Box>
         </>
       )}
