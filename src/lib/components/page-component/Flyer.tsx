@@ -141,8 +141,7 @@ export const Flyer = ({ newRef, data }: { newRef?: any; data: IMainForm }) => {
                   color="blue.600"
                   textTransform="capitalize"
                 >
-                  {data?.firstName?.toLowerCase()}{' '}
-                  {data?.lastName?.toLowerCase()}
+                  {`${data?.firstName?.toLowerCase()} ${data?.lastName?.toLowerCase()}`}
                 </Text>
                 <HStack
                   fontSize=".5rem"

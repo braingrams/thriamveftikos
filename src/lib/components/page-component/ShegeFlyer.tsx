@@ -105,8 +105,9 @@ export const ShegeFlyer = ({
                 fontSize=".7rem"
                 fontFamily="'Baloo Bhaijaan 2', sans-serif"
                 fontWeight={500}
+                textTransform="capitalize"
               >
-                {data?.firstName} {data?.lastName}
+                {`${data?.firstName?.toLowerCase()} ${data?.lastName?.toLowerCase()}`}
               </Text>
             </VStack>
           </HStack>
