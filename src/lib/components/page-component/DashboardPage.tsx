@@ -144,7 +144,7 @@ export const DashboardPage = ({ data }: { data: any }) => {
   };
 
   const nonProcessedUsers = !data.error
-    ? data.filter((x: any) => x?.data?.processed)
+    ? data.filter((x: any) => !x?.data?.processed)
     : [];
   const downloadFiveRandomData = async () => {
     const items = getRandom(nonProcessedUsers, 5);
