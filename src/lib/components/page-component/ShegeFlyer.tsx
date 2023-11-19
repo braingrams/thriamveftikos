@@ -14,6 +14,7 @@ import {
 import { TextBox } from '../Utilis/TextBox';
 import { BsInstagram } from 'react-icons/bs';
 import dayjs from 'dayjs';
+import Logo from '../Utilis/Logo';
 
 export const ShegeFlyer = ({
   newRef,
@@ -38,7 +39,8 @@ export const ShegeFlyer = ({
     >
       <Box backgroundColor="rgba(256,256,256,.9)" h="full">
         <HStack justify="center" py="1.5rem" align="center">
-          <Image src="/assets/logo.png" h="2rem" />
+          {/* <Image src="/assets/logo.png" h="2rem" /> */}
+          <Logo height="2rem" width="2rem" />
           <VStack gap="0">
             <Text
               fontSize=".7rem"

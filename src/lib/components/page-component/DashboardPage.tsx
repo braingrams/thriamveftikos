@@ -45,6 +45,7 @@ import { AiFillDelete } from 'react-icons/ai';
 import { useDebouncedCallback } from 'use-debounce';
 import { EditUserModal } from './EditUserModal';
 import getRandom from '../Utilis/getRandomArray';
+import Logo from '../Utilis/Logo';
 
 export const DashboardPage = ({ data }: { data: any }) => {
   const pageRef = useRef();
@@ -182,7 +183,8 @@ export const DashboardPage = ({ data }: { data: any }) => {
   return (
     <Box h="100vh" overflowX="hidden" pos="relative">
       <Box h="5rem" mx="auto" w="fit-content" mb="1rem">
-        <Image src="/assets/logo.png" h="full" />
+        {/* <Image src="/assets/logo.png" h="full" /> */}
+        <Logo height="100%" />
       </Box>
       {data.error ? (
         <VStack>

@@ -51,7 +51,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
       <body>
         <Suspense fallback={<Loading />}>
           <Providers>
-            <Layout>{children}</Layout>
+              <Layout>{children}</Layout>
           </Providers>
         </Suspense>
       </body>

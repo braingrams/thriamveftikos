@@ -14,6 +14,7 @@ import { setDoc, doc, getDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 import { PrimaryUpload } from '../Utilis/PrimaryUpload';
 import { responseGenerate } from './gptAi';
+import Logo from '../Utilis/Logo';
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),
@@ -97,7 +98,8 @@ export const FormPage = () => {
   return (
     <Box>
       <Box h="5rem" mx="auto" w="fit-content" mb="1rem">
-        <Image src="/assets/logo.png" h="full" />
+        {/* <Image src="/assets/logo.png" h="full" /> */}
+        <Logo height="100%" />
       </Box>
       {waiting ? (
         <VStack>

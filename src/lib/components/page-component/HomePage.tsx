@@ -3,12 +3,14 @@
 import { Box, Button, Image, Text, VStack } from '@chakra-ui/react';
 import Link from 'next/link';
 import React from 'react';
+import Logo from '../Utilis/Logo';
 
 export const HomePage = () => {
   return (
     <VStack>
       <Box h="8rem" mb="1rem">
-        <Image src="/assets/logo.png" h="full" />
+        {/* <Image src="/assets/logo.png" h="full" /> */}
+        <Logo height="100%" />
       </Box>
       <Text textAlign="center">
         Dear Finalist, this is the <b>FYB</b> biodata portal for the face of

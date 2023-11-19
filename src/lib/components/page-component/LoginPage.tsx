@@ -10,6 +10,7 @@ import { ILoginForm } from '../Utilis/Schemas';
 import { auth, signIn } from '../firebase/firebase';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
+import Logo from '../Utilis/Logo';
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),
@@ -53,7 +54,8 @@ export const LoginPage = () => {
   return (
     <VStack>
       <Box h="5rem" mx="auto" w="fit-content" mb="1rem">
-        <Image src="/assets/logo.png" h="full" />
+        {/* <Image src="/assets/logo.png" h="full" /> */}
+        <Logo height="100%" />
       </Box>
 
       {error.state && (
