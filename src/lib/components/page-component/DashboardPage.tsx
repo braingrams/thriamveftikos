@@ -213,12 +213,15 @@ export const DashboardPage = ({ data }: { data: any }) => {
                   {data?.length})
                 </Text>
               </Box>
-              <Button
-                onClick={() => downloadFiveRandomData()}
-                isLoading={loading.id == 'multiple'}
-              >
-                Download 5 Items
-              </Button>
+              <VStack>
+                <Button
+                  onClick={() => downloadFiveRandomData()}
+                  isLoading={loading.id == 'multiple'}
+                >
+                  Download 5 Items
+                </Button>
+                <Text mt="1rem">UnProcessed ({nonProcessedUsers})</Text>
+              </VStack>
             </HStack>
             <Box mb="1rem">
               <Input
