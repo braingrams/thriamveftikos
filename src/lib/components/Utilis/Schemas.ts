@@ -15,6 +15,8 @@ export interface IMainForm {
   processed?: false;
   instagram?: string;
   shegeExperience?: string;
+  merchFee?: number
+  merchPaid?: number
 }
 
 export interface ILoginForm {
