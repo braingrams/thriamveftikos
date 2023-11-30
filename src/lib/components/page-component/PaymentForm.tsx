@@ -52,7 +52,7 @@ export const PaymentForm = () => {
   const price = watch('price');
   const config = {
     reference: new Date().getTime().toString(),
-    email: data.email as string,
+    email: (data.email as string) || '',
     amount: Number(price) * 100,
     publicKey: process.env.NEXT_PUBLIC_PAYSTACK_KEY as string,
   };
@@ -60,7 +60,6 @@ export const PaymentForm = () => {
   const router = useRouter();
 
   const onSuccess = async (reference: any) => {
-    console.log(reference);
     const newMerchPaid = Number(data?.merchPaid || 0) + Number(price);
     const userDocRef = doc(db, 'user-transactions', data.email as string);
     if (reference.status == 'success') {
