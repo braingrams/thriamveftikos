@@ -7,6 +7,7 @@ import {
   VStack,
   Text,
   Square,
+  Flex,
 } from '@chakra-ui/react';
 import React, { useContext } from 'react';
 import { UserContext } from '~/lib/Context/UserContext';
@@ -45,20 +46,16 @@ export const UserDashboard = () => {
       </Text>
 
       <VStack>
-        <Box
+        <Flex
           w="100%"
           h="13rem"
           overflow="hidden"
           borderRadius="8px"
+          justify="center"
           // boxShadow="0 0 8px 3px rgba(0,0,0,.1)"
         >
-          <Image
-            src={'/assets/sample.jpg'}
-            w="full"
-            h="full"
-            objectFit="cover"
-          />
-        </Box>
+          <Image src={'/assets/ab.webp'} w="auto" h="full" objectFit="cover" />
+        </Flex>
         <VStack align="flex-start" gap="0" w="full">
           <Text
             fontSize="1.3rem"
