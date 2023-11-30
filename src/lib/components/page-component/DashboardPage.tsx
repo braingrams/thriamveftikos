@@ -220,7 +220,7 @@ export const DashboardPage = ({ data }: { data: any }) => {
                 >
                   Download 5 Items
                 </Button>
-                <Text mt="1rem">UnProcessed ({nonProcessedUsers?.length })</Text>
+                <Text mt="1rem">UnProcessed ({nonProcessedUsers?.length})</Text>
               </VStack>
             </HStack>
             <Box mb="1rem">

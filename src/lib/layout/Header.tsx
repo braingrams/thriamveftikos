@@ -6,17 +6,44 @@ import {
   VStack,
   Image,
   Text,
+  Icon,
 } from '@chakra-ui/react';
 
 import { useContext } from 'react';
 import { UserContext } from '../Context/UserContext';
 import { IMainForm } from '../components/Utilis/Schemas';
+import { RiLogoutBoxLine } from 'react-icons/ri';
+import { useRouter } from 'next/navigation';
+import Cookies from 'js-cookie';
 
 const Header = () => {
   const { user } = useContext(UserContext);
   const data: IMainForm = user;
+  const router = useRouter();
+  const logOut = () => {
+    Cookies.remove('user-info');
+    router.push('/login');
+  };
+  function getGreeting() {
+    const currentHour = new Date().getHours();
+    if (currentHour >= 5 && currentHour < 12) {
+      return 'Good morning!';
+    } else if (currentHour >= 12 && currentHour < 18) {
+      return 'Good afternoon!';
+    } else if (currentHour >= 18 && currentHour < 20) {
+      return 'Good evening!';
+    } else {
+      return 'Good night!';
+    }
+  }
   return (
-    <Flex as="header" width="full" align="center" p="2rem">
+    <Flex
+      as="header"
+      width="full"
+      align="center"
+      p="2rem"
+      justify="space-between"
+    >
       <HStack>
         <Circle size="4rem" bgColor="blue.100" overflow="hidden">
           <Image src={data?.image} w="full" h="full" objectFit="cover" />
@@ -28,19 +55,20 @@ const Header = () => {
             fontWeight={500}
             textTransform="capitalize"
           >
-            Good day
+            {getGreeting()}
           </Text>
           <Text
             fontSize="1.1rem"
             fontFamily="'Montserrat', sans-serif"
             fontWeight={700}
             color="brand.100"
-            textTransform="uppercase"
+            // textTransform="uppercase"
           >
             {data?.firstName}
           </Text>
         </VStack>
       </HStack>
+      <Icon as={RiLogoutBoxLine} onClick={() => logOut()} />
     </Flex>
   );
 };

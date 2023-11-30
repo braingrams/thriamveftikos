@@ -11,13 +11,13 @@ function InfoBox({ label, value }: cardType) {
       fontWeight="semibold"
       borderRadius="4px"
       boxShadow="0 2px 2px 0 rgba(0,0,0,0.12)"
-      h="5rem"
+      h="100%"
       padding="1rem"
     >
-      <Flex justifyContent="space-between" mb="3rem" alignItems="center">
+      <Flex justifyContent="space-between" alignItems="center">
         <Text fontSize="12px">{label}</Text>
       </Flex>
-      <Text fontSize="30px">{value}</Text>
+      <Text fontSize="25px">{value}</Text>
     </Box>
   );
 }

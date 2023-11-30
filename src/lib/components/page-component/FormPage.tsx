@@ -93,7 +93,7 @@ export const FormPage = () => {
 
   useEffect(() => {
     setValue('image', imageUrl?.url?.cdnUrl);
-    trigger('image');
+  trigger('image');
   }, [imageUrl]);
   return (
     <Box>

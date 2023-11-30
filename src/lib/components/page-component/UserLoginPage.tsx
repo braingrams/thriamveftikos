@@ -36,12 +36,11 @@ export const UserLoginPage = () => {
     );
     try {
       const res = await getDocs(q);
-      console.log({ res });
       if (res.docs.length > 0) {
         res.forEach((doc) => {
           Cookies.set('user-info', JSON.stringify(doc.data().data));
         });
-        router.push('/user/dashboard')
+        router.push('/user/dashboard');
       }
       if (res.empty) {
         setError({

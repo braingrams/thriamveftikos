@@ -77,6 +77,9 @@ dependencies:
   react-multi-date-picker:
     specifier: ^4.4.1
     version: 4.4.1(react-dom@18.2.0)(react@18.2.0)
+  react-paystack:
+    specifier: ^4.0.3
+    version: 4.0.3(react-dom@18.2.0)(react@18.2.0)
   react-use:
     specifier: ^17.4.0
     version: 17.4.0(react-dom@18.2.0)(react@18.2.0)
@@ -8602,6 +8605,16 @@ packages:
       react-date-object: 2.1.8
       react-dom: 18.2.0(react@18.2.0)
       react-element-popper: 2.1.6(react-dom@18.2.0)(react@18.2.0)
+    dev: false
+
+  /react-paystack@4.0.3(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-ruu94Qrvi7QHK1axrHRShUebka68G3UyGIndVFPCjs3rddBOkLiorF6GJ98FW9lq4ov5M4adh4g03F6aOuJmRA==}
+    peerDependencies:
+      react: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /react-remove-scroll-bar@2.3.4(@types/react@18.2.25)(react@18.2.0):

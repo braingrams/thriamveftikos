@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import {
   Box,
   Button,
@@ -21,23 +21,36 @@ export const UserDashboard = () => {
   return (
     <Box>
       <Text
+        fontSize=".9rem"
+        fontFamily="'Baloo Bhaijaan 2', sans-serif"
+        fontWeight={400}
+        p=".2rem 1rem"
+        bgColor="brand.200"
+        color="white"
+        ml="auto"
+        w="fit-content"
+      >
+        Amount Paid:{Naira(data?.merchPaid || 0)}
+      </Text>
+      <Text
         fontSize="1.1rem"
-        fontFamily="'Montserrat', sans-serif"
+        // fontFamily="'Montserrat', sans-serif"
         fontWeight={700}
-        color="brand.100"
+        color="brand.200"
         textTransform="uppercase"
-        mt="2rem"
+        my="2rem"
         textAlign="center"
       >
         Your Package
       </Text>
 
-      <HStack>
-        <Square
-          size="8rem"
+      <VStack>
+        <Box
+          w="100%"
+          h="13rem"
           overflow="hidden"
           borderRadius="8px"
-          boxShadow="0 0 8px 3px rgba(0,0,0,.1)"
+          // boxShadow="0 0 8px 3px rgba(0,0,0,.1)"
         >
           <Image
             src={'/assets/sample.jpg'}
@@ -45,27 +58,26 @@ export const UserDashboard = () => {
             h="full"
             objectFit="cover"
           />
-        </Square>
-        <VStack align="flex-start" gap="0">
+        </Box>
+        <VStack align="flex-start" gap="0" w="full">
           <Text
-            fontSize="1.1rem"
+            fontSize="1.3rem"
             fontFamily="'Montserrat', sans-serif"
             fontWeight={700}
-            color="brand.100"
-            textTransform="uppercase"
+            color="brand.200"
           >
             Thriamveftikos Merch
           </Text>
           <Text
-            fontSize=".7rem"
+            fontSize="1.2rem"
             fontFamily="'Baloo Bhaijaan 2', sans-serif"
             fontWeight={500}
             textTransform="capitalize"
           >
-            {Naira(data?.merchFee)}
+            {Naira(data?.merchFee || 0)}
           </Text>
         </VStack>
-      </HStack>
+      </VStack>
       <Button
         bgColor="black"
         color="white"
@@ -77,6 +89,18 @@ export const UserDashboard = () => {
         onClick={() => router.push('/user/pay-form')}
       >
         Pay
+      </Button>
+      <Button
+        color="black"
+        variant="outline"
+        w="full"
+        mx="auto"
+        h="3rem"
+        borderRadius="8px"
+        mt="1rem"
+        onClick={() => router.push('/user/transactions')}
+      >
+        View Payment History
       </Button>
     </Box>
   );
