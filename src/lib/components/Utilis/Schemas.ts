@@ -15,18 +15,17 @@ export interface IMainForm {
   processed?: false;
   instagram?: string;
   shegeExperience?: string;
-  merchFee?: number
-  merchPaid?: number
+  merchFee?: number;
+  merchPaid?: number;
 }
 
 export interface ILoginForm {
   email?: string;
   password?: string;
 }
-export interface ISizeboxProps{
-  bgColor?: string;
-  color?: string;
+export interface ISizeboxProps {
+  sizeValue: string;
   onClick: any;
-  text: string
+  text: string;
   disabled?: boolean;
 }

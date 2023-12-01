@@ -30,10 +30,8 @@ const Header = () => {
       return 'Good morning!';
     } else if (currentHour >= 12 && currentHour < 18) {
       return 'Good afternoon!';
-    } else if (currentHour >= 18 && currentHour < 20) {
-      return 'Good evening!';
     } else {
-      return 'Good night!';
+      return 'Good evening!';
     }
   }
   return (

@@ -9,6 +9,8 @@ import {
   Square,
   Grid,
   Flex,
+  Icon,
+  Spinner,
 } from '@chakra-ui/react';
 import React, { useContext, useState } from 'react';
 import { UserContext } from '~/lib/Context/UserContext';
@@ -16,13 +18,31 @@ import { IMainForm } from '../Utilis/Schemas';
 import Naira from '../Utilis/CustomHooks/Naira';
 import { useRouter } from 'next/navigation';
 import { SizeBox } from '../Utilis/SizeBox';
+import { BsCheck } from 'react-icons/bs';
+import { doc, updateDoc } from 'firebase/firestore';
+import { db } from '../firebase/firebase';
 
 export const UserDashboard = () => {
   const { user } = useContext(UserContext);
   const data: IMainForm = user;
   const router = useRouter();
-  const [sizeValue, setSizeValue] = useState('')  
- return (
+  const [sizeValue, setSizeValue] = useState('');
+  const [loading, setloading] = useState(false);
+
+  const saveUserSize = async () => {
+    setloading(true);
+    try {
+      const userRef = doc(db, 'user-biodata', data?.email as string);
+      await updateDoc(userRef, {
+        'data.size': sizeValue,
+      });
+      setloading(false);
+    } catch (error) {
+      setloading(false);
+      console.log({ error });
+    }
+  };
+  return (
     <Box>
       <Text
         fontSize=".9rem"
@@ -76,12 +96,42 @@ export const UserDashboard = () => {
           >
             {Naira(data?.merchFee || 0)}
           </Text>
-          <Grid templateColumns={['repeat(6, 1fr)']} gap=".5rem">
+          <Grid templateColumns={['repeat(6, 1fr)']} gap=".5rem" mt=".5rem">
             <SizeBox
-              bgColor="black"
               text="S"
               onClick={() => setSizeValue('S')}
+              sizeValue={sizeValue}
             />
+            <SizeBox
+              sizeValue={sizeValue}
+              text="M"
+              onClick={() => setSizeValue('M')}
+            />
+            <SizeBox
+              sizeValue={sizeValue}
+              text="L"
+              onClick={() => setSizeValue('L')}
+            />
+            <SizeBox
+              sizeValue={sizeValue}
+              text="XL"
+              onClick={() => setSizeValue('XL')}
+            />
+            <SizeBox
+              sizeValue={sizeValue}
+              text="XXL"
+              onClick={() => setSizeValue('XXL')}
+            />
+            <Flex
+              w="full"
+              align="center"
+              justify="center"
+              bgColor="black"
+              color="white"
+              onClick={saveUserSize}
+            >
+              {loading ? <Spinner size="xs" /> : <Icon as={BsCheck} />}
+            </Flex>
           </Grid>
         </VStack>
       </VStack>
