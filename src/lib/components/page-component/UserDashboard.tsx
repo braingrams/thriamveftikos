@@ -7,19 +7,22 @@ import {
   VStack,
   Text,
   Square,
+  Grid,
   Flex,
 } from '@chakra-ui/react';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { UserContext } from '~/lib/Context/UserContext';
 import { IMainForm } from '../Utilis/Schemas';
 import Naira from '../Utilis/CustomHooks/Naira';
 import { useRouter } from 'next/navigation';
+import { SizeBox } from '../Utilis/SizeBox';
 
 export const UserDashboard = () => {
   const { user } = useContext(UserContext);
   const data: IMainForm = user;
   const router = useRouter();
-  return (
+  const [sizeValue, setSizeValue] = useState('')  
+ return (
     <Box>
       <Text
         fontSize=".9rem"
@@ -73,6 +76,13 @@ export const UserDashboard = () => {
           >
             {Naira(data?.merchFee || 0)}
           </Text>
+          <Grid templateColumns={['repeat(6, 1fr)']} gap=".5rem">
+            <SizeBox
+              bgColor="black"
+              text="S"
+              onClick={() => setSizeValue('S')}
+            />
+          </Grid>
         </VStack>
       </VStack>
       <Button

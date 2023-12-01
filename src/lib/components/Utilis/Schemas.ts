@@ -23,3 +23,10 @@ export interface ILoginForm {
   email?: string;
   password?: string;
 }
+export interface ISizeboxProps{
+  bgColor?: string;
+  color?: string;
+  onClick: any;
+  text: string
+  disabled?: boolean;
+}
