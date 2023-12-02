@@ -21,6 +21,7 @@ import { SizeBox } from '../Utilis/SizeBox';
 import { BsCheck } from 'react-icons/bs';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
+import { IoTicketOutline } from 'react-icons/io5';
 
 export const UserDashboard = ({ data }: { data: IMainForm }) => {
   const { user } = useContext(UserContext);
@@ -88,14 +89,20 @@ export const UserDashboard = ({ data }: { data: IMainForm }) => {
           >
             Thriamveftikos Merch
           </Text>
-          <Text
-            fontSize="1.2rem"
-            fontFamily="'Baloo Bhaijaan 2', sans-serif"
-            fontWeight={500}
-            textTransform="capitalize"
-          >
-            {Naira(data?.merchFee || 0)}
-          </Text>
+          <HStack>
+            <Text
+              fontSize="1.2rem"
+              fontFamily="'Baloo Bhaijaan 2', sans-serif"
+              fontWeight={500}
+              textTransform="capitalize"
+            >
+              {Naira(data?.merchFee || 0)}
+            </Text>
+            <HStack fontSize=".8em" color="brand.100">
+              <Icon as={IoTicketOutline} />
+              <Text>Comes with the FYB Dinner Ticket free</Text>
+            </HStack>
+          </HStack>
           <Grid templateColumns={['repeat(6, 1fr)']} gap=".5rem" mt=".5rem">
             <SizeBox
               text="S"
