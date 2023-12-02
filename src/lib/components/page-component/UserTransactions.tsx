@@ -12,6 +12,8 @@ import dayjs from 'dayjs';
 import React from 'react';
 import { IMainForm } from '../Utilis/Schemas';
 import { TableHead, TableBody } from '../Utilis/TableData';
+import getActualAmount from '../Utilis/getActualAmount';
+import Naira from '../Utilis/CustomHooks/Naira';
 
 export const UserTransactions = ({ data }: any) => {
   data = data.data;
@@ -46,7 +48,7 @@ export const UserTransactions = ({ data }: any) => {
                       value="1px solid #e5e5e5"
                     />
                     <TableBody
-                      name={item?.amount / 100}
+                      name={Naira(getActualAmount(item?.amount, item?.fees))}
                       border
                       value="1px solid #e5e5e5"
                     />

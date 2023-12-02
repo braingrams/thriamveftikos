@@ -49,7 +49,6 @@ export function TableBody({
   breakWord?: any;
   onClick?: any;
 }) {
-  console.log({ customColor });
   return (
     <Td
       borderColor={borderColor}

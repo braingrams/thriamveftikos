@@ -13,6 +13,8 @@ import React from 'react';
 import { IMainForm } from '../Utilis/Schemas';
 import { TableHead, TableBody } from '../Utilis/TableData';
 import Logo from '../Utilis/Logo';
+import Naira from '../Utilis/CustomHooks/Naira';
+import getActualAmount from '../Utilis/getActualAmount';
 
 export const AllTransactions = ({ data }: any) => {
   data = data.data;
@@ -30,7 +32,7 @@ export const AllTransactions = ({ data }: any) => {
             <Thead>
               <Tr>
                 <TableHead name="S/N" />
-                <TableHead name="Reference" />
+                <TableHead name="Name" />
                 <TableHead name="Amount Paid" />
                 <TableHead name="Channel" />
                 <TableHead name="Date" />
@@ -44,13 +46,15 @@ export const AllTransactions = ({ data }: any) => {
                   <Tr key={i}>
                     <TableBody name={i + 1} border value="1px solid #e5e5e5" />
                     <TableBody
-                      name={`${item?.reference}`}
+                      name={`${item?.metadata?.custom_fields?.find(
+                        (x: any) => x.variable_name == 'customer_name'
+                      ).value}`}
                       full
                       border
                       value="1px solid #e5e5e5"
                     />
                     <TableBody
-                      name={item?.amount / 100}
+                      name={Naira(getActualAmount(item?.amount, item?.fees))}
                       border
                       value="1px solid #e5e5e5"
                     />

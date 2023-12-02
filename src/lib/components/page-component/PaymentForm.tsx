@@ -1,5 +1,5 @@
 'use client';
-import { Box, Button, VStack, Text, Grid } from '@chakra-ui/react';
+import { Box, Button, VStack, Text, Grid, HStack } from '@chakra-ui/react';
 import React, { useContext } from 'react';
 import { UserContext } from '~/lib/Context/UserContext';
 import { IMainForm } from '../Utilis/Schemas';
@@ -36,16 +36,50 @@ export const PaymentForm = ({ data }: { data: IMainForm }) => {
     mode: 'all',
   });
   const price = watch('price');
+  const getFee = (
+    price: number,
+    percent: number,
+    extra: number,
+    max: number,
+    min: number
+  ) => {
+    const percentage = (percent / 100) * price;
+    if (price <= min && !(price <= 0)) {
+      return percentage;
+    } else if (percentage > max) {
+      return max;
+    } else if (price <= 0) {
+      return 0;
+    } else {
+      return percentage + extra;
+    }
+  };
+  const fee = Math.ceil(getFee(Number(price || 0), 2.0, 100, 2000, 2500));
+  const total = Number(price || 0) + fee;
   const config = {
     reference: new Date().getTime().toString(),
     email: (data.email as string) || '',
-    amount: Number(price) * 100,
+    amount: total * 100,
     publicKey: process.env.NEXT_PUBLIC_PAYSTACK_KEY as string,
+    metadata: {
+      custom_fields: [
+        {
+          display_name: 'Customer Name',
+          variable_name: 'customer_name',
+          value: `${data?.firstName} ${data?.lastName}`, // Pass the customer's name here
+        },
+      ],
+    },
   };
   const initializePayment = usePaystackPayment(config);
 
-  const onSuccess = async (reference: any) => {
-    window.location.href = reference?.redirectUrl;
+  const onSuccess = (reference: any) => {
+    const redirectUrl = reference.redirecturl;
+    if (redirectUrl) {
+      window.location.href = redirectUrl;
+    } else {
+      console.log('No redirect URL found in the response');
+    }
   };
   const onClose = () => {
     console.log('closed');
@@ -79,6 +113,10 @@ export const PaymentForm = ({ data }: { data: IMainForm }) => {
           label="How much do you want to pay now?"
           type="text"
         />
+        <HStack justify="space-between" fontSize=".9rem" w="full">
+          <Text>Fee: {Naira(fee)}</Text>
+          <Text fontWeight={600}>Total: {Naira(total)}</Text>
+        </HStack>
         <Button
           bgColor="black"
           color="white"
