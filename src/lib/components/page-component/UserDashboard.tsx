@@ -22,11 +22,11 @@ import { BsCheck } from 'react-icons/bs';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 
-export const UserDashboard = () => {
+export const UserDashboard = ({ data }: { data: IMainForm }) => {
   const { user } = useContext(UserContext);
-  const data: IMainForm = user;
+  // const data: IMainForm = user;
   const router = useRouter();
-  const [sizeValue, setSizeValue] = useState('');
+  const [sizeValue, setSizeValue] = useState(data?.size);
   const [loading, setloading] = useState(false);
 
   const saveUserSize = async () => {
@@ -77,7 +77,7 @@ export const UserDashboard = () => {
           justify="center"
           // boxShadow="0 0 8px 3px rgba(0,0,0,.1)"
         >
-          <Image src={'/assets/ab.webp'} w="auto" h="full" objectFit="cover" />
+          <Image src={'/assets/abc.jpg'} w="auto" h="full" objectFit="cover" />
         </Flex>
         <VStack align="flex-start" gap="0" w="full">
           <Text

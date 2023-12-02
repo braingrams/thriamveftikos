@@ -72,6 +72,7 @@ export const FormPage = () => {
   };
 
   const onSubmit = async (data: IMainForm) => {
+    data.email = data.email?.toLowerCase();
     const userDocRef = doc(db, 'user-biodata', data.email as string);
     const userDocSnapshot = await getDoc(userDocRef);
     try {
@@ -93,7 +94,7 @@ export const FormPage = () => {
 
   useEffect(() => {
     setValue('image', imageUrl?.url?.cdnUrl);
-  trigger('image');
+    trigger('image');
   }, [imageUrl]);
   return (
     <Box>

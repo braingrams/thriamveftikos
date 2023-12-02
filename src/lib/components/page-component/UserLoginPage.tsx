@@ -11,7 +11,14 @@ import { db } from '../firebase/firebase';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
 import Logo from '../Utilis/Logo';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from 'firebase/firestore';
 
 const schema = yup.object().shape({
   email: yup.string().email().required(),
@@ -30,19 +37,17 @@ export const UserLoginPage = () => {
   const [error, setError] = useState({ state: false, message: '' });
   const onSubmit = async (data: ILoginForm) => {
     setError({ state: false, message: '' });
-    const q = query(
-      collection(db, 'user-biodata'),
-      where('data.email', '==', data.email)
-    );
     try {
-      const res = await getDocs(q);
-      if (res.docs.length > 0) {
-        res.forEach((doc) => {
-          Cookies.set('user-info', JSON.stringify(doc.data().data));
-        });
+      const docRef = doc(
+        db,
+        'user-biodata',
+        data.email?.toLowerCase() as string
+      );
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        Cookies.set('user-info', JSON.stringify(docSnap.data().data));
         router.push('/user/dashboard');
-      }
-      if (res.empty) {
+      } else {
         setError({
           state: true,
           message:

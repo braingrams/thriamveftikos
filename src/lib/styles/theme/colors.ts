@@ -7,7 +7,7 @@ const extendedColors: DeepPartial<
   brand: {
     100: '#dea512',
     200: '#1a1a1a',
-    300: '',
+    300: '#009b35',
     400: '',
     500: '',
     600: '',

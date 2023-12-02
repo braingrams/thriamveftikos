@@ -49,6 +49,7 @@ export function TableBody({
   breakWord?: any;
   onClick?: any;
 }) {
+  console.log({ customColor });
   return (
     <Td
       borderColor={borderColor}
@@ -65,12 +66,12 @@ export function TableBody({
       // overflow="hidden"
       // noOfLines={1}
       color={
-        name == 'OFFSHORE'
-          ? 'brand.700'
-          : name == 'ONSHORE'
-          ? 'brand.400'
+        name == 'pending'
+          ? 'brand.100'
+          : name == 'success'
+          ? 'brand.300'
           : customColor
-          ? customColor
+          ? 'red.600'
           : 'black'
       }
     >

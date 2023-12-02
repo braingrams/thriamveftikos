@@ -15,6 +15,7 @@ export interface IMainForm {
   processed?: false;
   instagram?: string;
   shegeExperience?: string;
+  size?: string;
   merchFee?: number;
   merchPaid?: number;
 }
@@ -24,7 +25,7 @@ export interface ILoginForm {
   password?: string;
 }
 export interface ISizeboxProps {
-  sizeValue: string;
+  sizeValue: string | undefined;
   onClick: any;
   text: string;
   disabled?: boolean;

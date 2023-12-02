@@ -12,12 +12,16 @@ import dayjs from 'dayjs';
 import React from 'react';
 import { IMainForm } from '../Utilis/Schemas';
 import { TableHead, TableBody } from '../Utilis/TableData';
+import Logo from '../Utilis/Logo';
 
-export const UserTransactions = ({ data }: any) => {
+export const AllTransactions = ({ data }: any) => {
   data = data.data;
   return (
-    <Box>
-      <Text mb="1rem">Your Payment History</Text>
+    <Box p="1rem">
+      <Box h="5rem" mx="auto" w="fit-content" mb="1rem">
+        <Logo height="100%" />
+      </Box>
+      <Text mb="1rem">All Payment History</Text>
       {data?.length == 0 ? (
         <Text textAlign="center">No Transaction Yet</Text>
       ) : (

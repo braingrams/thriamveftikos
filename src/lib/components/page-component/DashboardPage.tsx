@@ -17,6 +17,7 @@ import {
   Input,
   Spinner,
   HStack,
+  Circle,
 } from '@chakra-ui/react';
 import React, {
   createRef,
@@ -31,7 +32,7 @@ import dayjs from 'dayjs';
 import { generateImageProfile } from './GenerateImage';
 import { Flyer } from './Flyer';
 import { BsCheckCircleFill } from 'react-icons/bs';
-import { FaTimesCircle } from 'react-icons/fa';
+import { FaTimesCircle, FaWallet } from 'react-icons/fa';
 import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useWindowSize } from 'react-use';
@@ -182,6 +183,16 @@ export const DashboardPage = ({ data }: { data: any }) => {
 
   return (
     <Box h="100vh" overflowX="hidden" pos="relative">
+      <Circle
+        size="3rem"
+        bgColor="black"
+        cursor="pointer"
+        color="white"
+        ml="1.5rem"
+        onClick={() => router.push('/admin/all-transactions')}
+      >
+        <Icon as={FaWallet} fontSize="1.2rem" />
+      </Circle>
       <Box h="5rem" mx="auto" w="fit-content" mb="1rem">
         {/* <Image src="/assets/logo.png" h="full" /> */}
         <Logo height="100%" />
@@ -236,11 +247,12 @@ export const DashboardPage = ({ data }: { data: any }) => {
                   <Tr>
                     <TableHead name="S/N" />
                     <TableHead name="Full Name" />
-                    <TableHead name="DOB" />
-                    <TableHead name="Fav. Lecturer" />
-                    <TableHead name="Fav. Course" />
-                    <TableHead name="Crush" />
                     <TableHead name="Option" />
+                    {/* <TableHead name="DOB" /> */}
+                    {/* <TableHead name="Fav. Lecturer" /> */}
+                    <TableHead name="Amount Paid" />
+                    <TableHead name="Balance" />
+                    <TableHead name="Size" />
                     <TableHead name="Status" />
                     <TableHead name="Action" />
                     <TableHead name="Shege" />
@@ -265,27 +277,27 @@ export const DashboardPage = ({ data }: { data: any }) => {
                           value="1px solid #e5e5e5"
                         />
                         <TableBody
-                          name={dayjs(user?.dob).format('MMM DD')}
+                          name={user?.option}
                           border
                           value="1px solid #e5e5e5"
                         />
-                        <TableBody
+                        {/* <TableBody
                           name={user?.favLecturer}
                           border
                           value="1px solid #e5e5e5"
-                        />
+                        /> */}
                         <TableBody
-                          name={user?.favCourse}
+                          name={user?.merchPaid}
                           border
                           value="1px solid #e5e5e5"
                         />
                         <TableBody
-                          name={user?.crush}
+                          name={(user?.merchFee || 0) - (user?.merchPaid || 0)}
                           border
                           value="1px solid #e5e5e5"
                         />
                         <TableBody
-                          name={user.option}
+                          name={user?.size}
                           border
                           value="1px solid #e5e5e5"
                         />
