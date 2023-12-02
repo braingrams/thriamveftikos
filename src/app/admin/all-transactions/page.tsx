@@ -23,8 +23,8 @@ const getData = async () => {
 };
 const page = async () => {
   const cookieStore = cookies();
-  const user = cookieStore.get('user-info');
-  if (!user) {
+  const token = cookieStore.get('token');
+  if (!token) {
     permanentRedirect('/admin/login');
   }
   const data = await getData();

@@ -6,8 +6,8 @@ import { UserDashboard } from '~/lib/components/page-component/UserDashboard';
 
 const page = () => {
   const cookieStore = cookies();
-  const user = cookieStore.get('user-info');
-  if (!user) {
+  const token = cookieStore.get('token');
+  if (!token) {
     permanentRedirect('/admin/login');
   }
   return <GenerateMech />;
