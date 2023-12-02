@@ -22,6 +22,7 @@ import { BsCheck } from 'react-icons/bs';
 import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 import { IoTicketOutline } from 'react-icons/io5';
+import { toast } from 'react-toastify';
 
 export const UserDashboard = ({ data }: { data: IMainForm }) => {
   const { user } = useContext(UserContext);
@@ -31,6 +32,18 @@ export const UserDashboard = ({ data }: { data: IMainForm }) => {
   const [loading, setloading] = useState(false);
 
   const saveUserSize = async () => {
+    if (sizeValue == '') {
+      toast.error(`${data?.lastName} select a size before you save 😉`, {
+        theme: 'colored',
+      });
+      return;
+    }
+    if (sizeValue == data?.size) {
+      toast.error(`${data?.lastName} You've selected this size before 😒`, {
+        theme: 'colored',
+      });
+      return;
+    }
     setloading(true);
     try {
       const userRef = doc(db, 'user-biodata', data?.email as string);
@@ -136,6 +149,7 @@ export const UserDashboard = ({ data }: { data: IMainForm }) => {
               bgColor="black"
               color="white"
               onClick={saveUserSize}
+              cursor="pointer"
             >
               {loading ? <Spinner size="xs" /> : <Icon as={BsCheck} />}
             </Flex>

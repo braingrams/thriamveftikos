@@ -2,6 +2,7 @@
 
 import { CacheProvider } from '@chakra-ui/next-js';
 import { Next13ProgressBar } from 'next13-progressbar';
+import { ToastContainer } from 'react-toastify';
 
 import { Chakra as ChakraProvider } from '~/lib/components/Chakra';
 
@@ -15,6 +16,7 @@ const Providers = ({ children }: { children: React.ReactNode }) => {
         options={{ showSpinner: false }}
         showOnShallow
       />
+      <ToastContainer />
     </CacheProvider>
   );
 };

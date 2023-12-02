@@ -42,7 +42,12 @@ const Header = () => {
       p="2rem"
       justify="space-between"
     >
-      <HStack>
+      <HStack
+        onClick={() => {
+          router.push('/user/dashboard');
+        }}
+        cursor="pointer"
+      >
         <Circle size="4rem" bgColor="blue.100" overflow="hidden">
           <Image src={data?.image} w="full" h="full" objectFit="cover" />
         </Circle>
