@@ -51,7 +51,7 @@ export const UserTransactions = ({ data }: any) => {
                       name={Naira(
                         item?.metadata?.custom_fields?.find(
                           (x: any) => x.variable_name == 'actual_price'
-                        ).value || 0
+                        )?.value || 0
                       )}
                       border
                       value="1px solid #e5e5e5"
