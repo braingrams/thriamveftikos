@@ -54,7 +54,7 @@ export const PaymentForm = ({ data }: { data: IMainForm }) => {
       return percentage + extra;
     }
   };
-  const fee = Math.ceil(getFee(Number(price || 0), 2.0, 100, 2000, 2500));
+  const fee = getFee(Number(price || 0), 2.0, 100, 2000, 2500);
   const total = Number(price || 0) + fee;
   const config = {
     reference: new Date().getTime().toString(),
@@ -114,8 +114,8 @@ export const PaymentForm = ({ data }: { data: IMainForm }) => {
           type="text"
         />
         <HStack justify="space-between" fontSize=".9rem" w="full">
-          <Text>Fee: {Naira(fee)}</Text>
-          <Text fontWeight={600}>Total: {Naira(total)}</Text>
+          <Text>Fee: {Naira(Math.ceil(fee))}</Text>
+          <Text fontWeight={600}>Total: {Naira(Math.ceil(total))}</Text>
         </HStack>
         <Button
           bgColor="black"
