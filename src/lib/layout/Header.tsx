@@ -15,6 +15,7 @@ import { IMainForm } from '../components/Utilis/Schemas';
 import { RiLogoutBoxLine } from 'react-icons/ri';
 import { useRouter } from 'next/navigation';
 import Cookies from 'js-cookie';
+import Link from 'next/link';
 
 const Header = () => {
   const { user } = useContext(UserContext);
@@ -42,35 +43,32 @@ const Header = () => {
       p="2rem"
       justify="space-between"
     >
-      <HStack
-        onClick={() => {
-          router.push('/user/dashboard');
-        }}
-        cursor="pointer"
-      >
-        <Circle size="4rem" bgColor="blue.100" overflow="hidden">
-          <Image src={data?.image} w="full" h="full" objectFit="cover" />
-        </Circle>
-        <VStack align="flex-start" gap="0">
-          <Text
-            fontSize=".7rem"
-            fontFamily="'Baloo Bhaijaan 2', sans-serif"
-            fontWeight={500}
-            textTransform="capitalize"
-          >
-            {getGreeting()}
-          </Text>
-          <Text
-            fontSize="1.1rem"
-            fontFamily="'Montserrat', sans-serif"
-            fontWeight={700}
-            color="brand.100"
-            // textTransform="uppercase"
-          >
-            {data?.firstName}
-          </Text>
-        </VStack>
-      </HStack>
+      <Link passHref href="/user/dashboard">
+        <HStack cursor="pointer">
+          <Circle size="4rem" bgColor="blue.100" overflow="hidden">
+            <Image src={data?.image} w="full" h="full" objectFit="cover" />
+          </Circle>
+          <VStack align="flex-start" gap="0">
+            <Text
+              fontSize=".7rem"
+              fontFamily="'Baloo Bhaijaan 2', sans-serif"
+              fontWeight={500}
+              textTransform="capitalize"
+            >
+              {getGreeting()}
+            </Text>
+            <Text
+              fontSize="1.1rem"
+              fontFamily="'Montserrat', sans-serif"
+              fontWeight={700}
+              color="brand.100"
+              // textTransform="uppercase"
+            >
+              {data?.firstName}
+            </Text>
+          </VStack>
+        </HStack>
+      </Link>
       <Icon as={RiLogoutBoxLine} onClick={() => logOut()} />
     </Flex>
   );

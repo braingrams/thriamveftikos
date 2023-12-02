@@ -23,6 +23,7 @@ import { doc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase/firebase';
 import { IoTicketOutline } from 'react-icons/io5';
 import { toast } from 'react-toastify';
+import Link from 'next/link';
 
 export const UserDashboard = ({ data }: { data: IMainForm }) => {
   const { user } = useContext(UserContext);
@@ -156,30 +157,32 @@ export const UserDashboard = ({ data }: { data: IMainForm }) => {
           </Grid>
         </VStack>
       </VStack>
-      <Button
-        bgColor="black"
-        color="white"
-        w="full"
-        mx="auto"
-        h="3rem"
-        borderRadius="8px"
-        mt="2rem"
-        onClick={() => router.push('/user/pay-form')}
-      >
-        Pay
-      </Button>
-      <Button
-        color="black"
-        variant="outline"
-        w="full"
-        mx="auto"
-        h="3rem"
-        borderRadius="8px"
-        mt="1rem"
-        onClick={() => router.push('/user/transactions')}
-      >
-        View Payment History
-      </Button>
+      <Link passHref href="/user/pay-form">
+        <Button
+          bgColor="black"
+          color="white"
+          w="full"
+          mx="auto"
+          h="3rem"
+          borderRadius="8px"
+          mt="2rem"
+        >
+          Pay
+        </Button>
+      </Link>
+      <Link passHref href="/user/transactions">
+        <Button
+          color="black"
+          variant="outline"
+          w="full"
+          mx="auto"
+          h="3rem"
+          borderRadius="8px"
+          mt="1rem"
+        >
+          View Payment History
+        </Button>
+      </Link>
     </Box>
   );
 };

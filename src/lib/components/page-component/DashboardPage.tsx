@@ -183,16 +183,17 @@ export const DashboardPage = ({ data }: { data: any }) => {
 
   return (
     <Box h="100vh" overflowX="hidden" pos="relative">
-      <Circle
-        size="3rem"
-        bgColor="black"
-        cursor="pointer"
-        color="white"
-        ml="1.5rem"
-        onClick={() => router.push('/admin/all-transactions')}
-      >
-        <Icon as={FaWallet} fontSize="1.2rem" />
-      </Circle>
+      <Link passHref href="/admin/all-transactions">
+        <Circle
+          size="3rem"
+          bgColor="black"
+          cursor="pointer"
+          color="white"
+          ml="1.5rem"
+        >
+          <Icon as={FaWallet} fontSize="1.2rem" />
+        </Circle>
+      </Link>
       <Box h="5rem" mx="auto" w="fit-content" mb="1rem">
         {/* <Image src="/assets/logo.png" h="full" /> */}
         <Logo height="100%" />
