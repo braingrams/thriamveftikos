@@ -100,7 +100,7 @@ export const PaymentForm = ({ data }: { data: IMainForm }) => {
         Merch Fee History
       </Text>
 
-      <Grid templateColumns={['repeat(2, 1fr)']} gap="1rem">
+      <Grid templateColumns={['repeat(2, 1fr)', 'repeat(3, 1fr)']} gap="1rem">
         <InfoBox label="Mercandise Cost" value={Naira(data?.merchFee || 0)} />
         <InfoBox label="Amount Paid" value={Naira(data?.merchPaid || 0)} />
         <InfoBox label="Amount Remaining" value={Naira(balance)} />
