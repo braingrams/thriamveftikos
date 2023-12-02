@@ -54,9 +54,7 @@ export const PaymentForm = ({ data }: { data: IMainForm }) => {
       return percentage + extra;
     }
   };
-  const fee = parseFloat(
-    getFee(Number(price || 0), 2.0, 100, 2000, 2500).toFixed(2)
-  );
+  const fee = getFee(Number(price || 0), 2.0, 100, 2000, 2500).toFixed(2);
   const total = Number(price || 0) + fee;
   const config = {
     reference: new Date().getTime().toString(),

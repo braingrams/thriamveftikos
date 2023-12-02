@@ -1,4 +1,4 @@
 export default function getActualAmount(amount: number, fee: number) {
-  const newFees = fee + (1 / 3) * fee;
+  const newFees = fee + (1 / 3.25) * fee;
   return (amount - newFees) / 100;
 }
