@@ -54,7 +54,7 @@ export const UserDashboard = ({ data }: { data: IMainForm }) => {
         ml="auto"
         w="fit-content"
       >
-        Amount Paid:{Naira(data?.merchPaid || 0)}
+        Amount Paid:{Naira(Math.ceil(data?.merchPaid as number) || 0)}
       </Text>
       <Text
         fontSize="1.1rem"

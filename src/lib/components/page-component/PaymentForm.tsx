@@ -102,8 +102,11 @@ export const PaymentForm = ({ data }: { data: IMainForm }) => {
 
       <Grid templateColumns={['repeat(2, 1fr)', 'repeat(3, 1fr)']} gap="1rem">
         <InfoBox label="Mercandise Cost" value={Naira(data?.merchFee || 0)} />
-        <InfoBox label="Amount Paid" value={Naira(data?.merchPaid || 0)} />
-        <InfoBox label="Amount Remaining" value={Naira(balance)} />
+        <InfoBox
+          label="Amount Paid"
+          value={Naira(Math.ceil(data?.merchPaid as number) || 0)}
+        />
+        <InfoBox label="Amount Remaining" value={Naira(Math.ceil(balance))} />
       </Grid>
       {/* <form onSubmit={handleSubmit(onSubmit)} style={{ width: '100%' }}> */}
       <VStack w="full">
