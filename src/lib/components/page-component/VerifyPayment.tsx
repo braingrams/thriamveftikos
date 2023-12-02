@@ -13,7 +13,14 @@ export const VerifyPayment = ({ data }: any) => {
       <VStack w="full">
         <Icon as={BsCheck2Circle} color="green.400" fontSize="3rem" />
         <Text>Thank you for your payment</Text>
-        <Text>{Naira(getActualAmount(data?.data?.amount, data?.data?.fees))} has been confirmed</Text>
+        <Text>
+          {Naira(
+            data?.data?.metadata?.custom_fields?.find(
+              (x: any) => x.variable_name == 'actual_price'
+            ).value
+          )}{' '}
+          has been confirmed
+        </Text>
         <Button
           bgColor="black"
           color="white"

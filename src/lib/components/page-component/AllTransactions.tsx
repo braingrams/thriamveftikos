@@ -54,7 +54,11 @@ export const AllTransactions = ({ data }: any) => {
                       value="1px solid #e5e5e5"
                     />
                     <TableBody
-                      name={Naira(getActualAmount(item?.amount, item?.fees))}
+                      name={Naira(
+                        item?.metadata?.custom_fields?.find(
+                          (x: any) => x.variable_name == 'actual_price'
+                        ).value
+                      )}
                       border
                       value="1px solid #e5e5e5"
                     />

@@ -70,6 +70,11 @@ export const PaymentForm = ({ data }: { data: IMainForm }) => {
           variable_name: 'customer_name',
           value: `${data?.firstName} ${data?.lastName}`, // Pass the customer's name here
         },
+        {
+          display_name: 'Actual Price',
+          variable_name: 'actual_price',
+          value: Number(price), // Pass the customer's name here
+        },
       ],
     },
   };
