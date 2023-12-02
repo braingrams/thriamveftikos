@@ -13,7 +13,9 @@ import { db } from '~/lib/components/firebase/firebase';
 import { AllTransactions } from '~/lib/components/page-component/AllTransactions';
 
 const getData = async () => {
-  const res = await fetch(`http://localhost:5001/list-transactions`);
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/list-transactions`
+  );
   if (!res.ok) {
     throw new Error('Failed to fetch data');
   }
