@@ -4,9 +4,11 @@ import { db } from '../firebase/firebase';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { Box, Button, VStack } from '@chakra-ui/react';
+import { Box, Button, Text, VStack } from '@chakra-ui/react';
 import { PrimaryInput } from '../Utilis/PrimaryInput';
 import Logo from '../Utilis/Logo';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface merchForm {
   title: string;
@@ -16,6 +18,9 @@ interface merchForm {
 const schema = yup.object().shape({});
 
 const GenerateMech = () => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -29,6 +34,7 @@ const GenerateMech = () => {
   async function LoadAcct() {
     const q = query(collection(db, 'user-biodata'));
     const batch = writeBatch(db);
+    setLoading(true);
     try {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
@@ -40,12 +46,13 @@ const GenerateMech = () => {
         // batch.update(docRef, { merchFee: deleteField() });
       });
       await batch.commit();
+      setLoading(false);
+      setError('Batch Update Successful');
       console.log('Batch update successful');
-      reset({
-        title: '',
-        price: undefined,
-      });
+      router.refresh();
     } catch (error) {
+      setLoading(false);
+      setError('Error updating documents: Check console for more info');
       console.error('Error updating documents:', error);
     }
   }
@@ -55,6 +62,9 @@ const GenerateMech = () => {
         <Logo height="100%" />
       </Box>
       <VStack w="full">
+        <Text color="red" fontSize=".9rem">
+          {error}
+        </Text>
         <PrimaryInput<merchForm>
           name="title"
           register={register}
@@ -80,6 +90,7 @@ const GenerateMech = () => {
           borderRadius="8px"
           mt="2rem"
           onClick={LoadAcct}
+          isLoading={loading}
         >
           Load
         </Button>
