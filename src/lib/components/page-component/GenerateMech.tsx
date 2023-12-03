@@ -8,19 +8,17 @@ import { Box, Button, Text, VStack } from '@chakra-ui/react';
 import { PrimaryInput } from '../Utilis/PrimaryInput';
 import Logo from '../Utilis/Logo';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 interface merchForm {
   title: string;
-  price: number;
+  price: number | string;
 }
 
 const schema = yup.object().shape({});
 
 const GenerateMech = () => {
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-  const router = useRouter();
+  const [error, setError] = useState({ type: 1, msg: '' });
   const {
     register,
     handleSubmit,
@@ -40,19 +38,25 @@ const GenerateMech = () => {
       querySnapshot.forEach((doc) => {
         const updateObject = {};
         //@ts-ignore
-        updateObject[`data.${watch('title')}`] = watch('price');
+        updateObject[`data.${watch('title')}`] = Number(watch('price'));
         const docRef = doc.ref;
         batch.update(docRef, updateObject);
         // batch.update(docRef, { merchFee: deleteField() });
       });
       await batch.commit();
       setLoading(false);
-      setError('Batch Update Successful');
+      setError({ type: 1, msg: 'Batch Update Successful' });
       console.log('Batch update successful');
-      router.refresh();
+      reset({
+        title: '',
+        price: '',
+      });
     } catch (error) {
       setLoading(false);
-      setError('Error updating documents: Check console for more info');
+      setError({
+        type: 2,
+        msg: 'Error updating documents: Check console for more info',
+      });
       console.error('Error updating documents:', error);
     }
   }
@@ -62,8 +66,8 @@ const GenerateMech = () => {
         <Logo height="100%" />
       </Box>
       <VStack w="full">
-        <Text color="red" fontSize=".9rem">
-          {error}
+        <Text color={error.type == 1 ? 'green.400' : 'red'} fontSize=".9rem">
+          {error.msg}
         </Text>
         <PrimaryInput<merchForm>
           name="title"
