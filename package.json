@@ -30,6 +30,7 @@
     "@types/js-cookie": "^3.0.5",
     "@types/react-detect-offline": "^2.4.3",
     "@uploadcare/react-widget": "^2.4.5",
+    "@vercel/analytics": "^1.1.1",
     "dayjs": "^1.11.10",
     "downloadjs": "^1.4.7",
     "firebase": "^10.5.2",

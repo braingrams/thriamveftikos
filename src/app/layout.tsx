@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 
 import Providers from '~/app/providers';
 import Layout from '~/lib/layout';
@@ -54,6 +55,7 @@ const RootLayout = ({ children }: RootLayoutProps) => {
             <Layout>{children}</Layout>
           </Providers>
         </Suspense>
+        <Analytics />
       </body>
     </html>
   );
