@@ -6,10 +6,11 @@ const getData = async (email: string) => {
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/single-transaction?email=${email}`
   );
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
+  if (res.status == 404 || !res.ok) {
+    return { data: [] };
+  } else {
+    return res.json();
   }
-  return res.json();
 };
 const page = async () => {
   const cookieStore = cookies();
