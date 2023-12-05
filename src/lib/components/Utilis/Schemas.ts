@@ -12,7 +12,7 @@ export interface IMainForm {
   quote?: string;
   email?: string;
   image?: string;
-  processed?: false;
+  processed?: boolean;
   instagram?: string;
   shegeExperience?: string;
   size?: string;
