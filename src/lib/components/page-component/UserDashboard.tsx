@@ -32,7 +32,19 @@ export const UserDashboard = ({ data }: { data: IMainForm }) => {
   const [sizeValue, setSizeValue] = useState(data?.size);
   const [loading, setloading] = useState(false);
 
+  const isCompleted = data.merchPaid == data.merchFee;
+
   const saveUserSize = async () => {
+    if (!isCompleted) {
+      setSizeValue('');
+      toast.error(
+        `${data?.lastName} You can only select a size after completing your payment 😎`,
+        {
+          theme: 'colored',
+        }
+      );
+      return;
+    }
     if (sizeValue == '') {
       toast.error(`${data?.lastName} select a size before you save 😉`, {
         theme: 'colored',
@@ -157,19 +169,39 @@ export const UserDashboard = ({ data }: { data: IMainForm }) => {
           </Grid>
         </VStack>
       </VStack>
-      <Link passHref href="/user/pay-form">
-        <Button
-          bgColor="black"
-          color="white"
+      {isCompleted ? (
+        <Flex
+          justify="center"
           w="full"
-          mx="auto"
-          h="3rem"
-          borderRadius="8px"
-          mt="2rem"
+          p=".3rem 1rem"
+          border="1px solid"
+          borderColor="green.500"
+          bgColor="green.100"
+          fontSize=".8rem"
+          mt="1rem"
         >
-          Pay
-        </Button>
-      </Link>
+          <Text>{`Your Payment is complete
+      ${
+        data.size
+          ? 'and your size has been recorded. please wait while we deliver your merchandise to you'
+          : '. Please select a size from the sizes above to complete the process'
+      } `}</Text>
+        </Flex>
+      ) : (
+        <Link passHref href="/user/pay-form">
+          <Button
+            bgColor="black"
+            color="white"
+            w="full"
+            mx="auto"
+            h="3rem"
+            borderRadius="8px"
+            mt="2rem"
+          >
+            Pay
+          </Button>
+        </Link>
+      )}
       <Link passHref href="/user/transactions">
         <Button
           color="black"

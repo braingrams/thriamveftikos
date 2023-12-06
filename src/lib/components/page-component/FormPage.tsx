@@ -50,6 +50,7 @@ export const FormPage = () => {
     mode: 'all',
     defaultValues: {
       processed: false,
+      merchFee: 15000,
     },
   });
 
